@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<script src="config.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#C62828">
+<title>عالم الحروف العربية — مدرسة التجهيز العلمي الخاصة</title>
+<!--
+  Created by Technology lab - Altajheez Al Ilmi School - 79395837
+  Tajheez Al-Ilmi Private School — Arabic Alphabet Home (KG portal)
+  Single self-contained file: HTML + CSS + vanilla JS + inline SVG. No external
+  assets. The page itself works offline; the linked Google Sites letter pages
+  need an internet connection.
+
+  QUICK EDITS
+  • School name / texts ...... CONFIG (top of the script)
+  • Letter links / new letters  alphabetPages (top of the script)
+-->
+<style>
+:root{
+  --red:#C62828; --red-d:#8E1C1C; --green:#27864B; --green-d:#1B5E35;
+  --gold:#F4C95D; --gold-d:#C99A2E; --sky:#8FD3F4; --sand:#F7E8C8; --cream:#FFFDF5; --navy:#23334A;
+  --font:"Noto Naskh Arabic","Noto Sans Arabic","Traditional Arabic","Geeza Pro","Segoe UI","Tahoma",sans-serif;
+  --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24' viewBox='0 0 48 24'%3E%3Crect width='48' height='24' fill='%23C62828'/%3E%3Cg fill='%23FFF4DC'%3E%3Crect x='6' y='6' width='12' height='12'/%3E%3Crect x='6' y='6' width='12' height='12' transform='rotate(45 12 12)'/%3E%3Cpath d='M36 6l6 6-6 6-6-6z'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='3' fill='%23F4C95D'/%3E%3Ccircle cx='36' cy='12' r='2' fill='%2327864B'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:10px;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);color:var(--navy);background:#FBEBD0;min-height:100%;overflow-x:hidden;
+  -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-appearance:none}
+svg{display:block}
+.hidden{display:none !important}
+.fit .flow-br{display:none}
+.flow .lines .pill{margin:.4rem .6rem}
+a,button{touch-action:manipulation}
+:focus{outline:none}
+.kbd a:focus,.kbd button:focus{outline:.6rem solid var(--gold);outline-offset:.4rem}
+
+/* ---------- Scenery (fixed, decorative) ---------- */
+#scene{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#scene svg{width:100%;height:100%}
+.cloud-drift{animation:drift 38s ease-in-out infinite alternate}
+.cloud-drift.slow{animation-duration:52s}
+.sun-rays{animation:spin 80s linear infinite}
+@keyframes drift{from{transform:translateX(-40px)}to{transform:translateX(60px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.floaters{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden}
+.floater{position:absolute;font-weight:700;color:rgba(255,255,255,.55);text-shadow:0 .3rem .8rem rgba(35,51,74,.12);animation:float 9s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.6rem)}}
+
+#app{position:relative;z-index:1}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;text-align:center;padding:1.4rem 2rem .6rem}
+.brand{position:absolute;top:1.6rem;right:2rem;display:flex;align-items:center;background:rgba(255,253,245,.94);border-radius:4rem;padding:.6rem 2rem .6rem .8rem;box-shadow:0 .5rem 0 rgba(199,154,46,.35)}
+.brand svg{width:6rem;height:6rem;margin-left:1.2rem;flex:none}
+.brand span{font-size:2.3rem;font-weight:700;color:var(--green-d);line-height:1.4;white-space:nowrap}
+.tools{position:absolute;top:1.6rem;left:2rem;display:flex}
+.tool{width:7rem;height:7rem;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin-right:1.4rem;box-shadow:0 .6rem 0 #E3CFA6,0 1rem 1.6rem rgba(35,51,74,.15);transition:transform .08s,box-shadow .08s}
+.tool:first-child{margin-right:0}
+.tool svg{width:3.8rem;height:3.8rem}
+.tool.pressing{transform:translateY(.4rem);box-shadow:0 .2rem 0 #E3CFA6}
+.title-plaque{display:inline-block;position:relative;background:var(--cream);border-radius:3.6rem;padding:2rem 6rem .9rem;border:.4rem solid #fff;overflow:hidden;
+  box-shadow:0 1rem 0 rgba(199,154,46,.35),0 2rem 4rem rgba(35,51,74,.16)}
+.title-plaque::before,.card::before,.modal-card::before,.soon::before{content:"";position:absolute;top:0;left:0;right:0;height:1.6rem;background-image:var(--pattern);background-size:3.2rem 1.6rem;background-repeat:repeat-x}
+.title-plaque h1{font-size:5.2rem;line-height:1.45;color:var(--red);font-weight:700}
+.title-plaque .sub{font-size:2.6rem;line-height:1.5;color:var(--green);font-weight:700}
+.lines{margin-top:.9rem;display:flex;justify-content:center;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;font-size:2.5rem;font-weight:700;line-height:1.45;padding:.3rem 2.4rem;border-radius:3rem;margin:0 .8rem;box-shadow:0 .5rem 0 rgba(35,51,74,.12)}
+.pill.welcome{background:var(--gold);color:var(--navy)}
+.pill.instr{background:rgba(255,255,255,.95)}
+
+/* ---------- Stage: mascots + grid ---------- */
+.stage{position:relative;display:flex;align-items:stretch;justify-content:center;padding:.8rem 1.5rem 1.8rem}
+.mascot{position:relative;flex:none;width:18rem;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.mascot .kid-wrap{width:16rem;height:25.6rem}
+.mascot .kid{width:100%;height:100%;overflow:visible}
+.bubble{position:relative;background:#fff;border-radius:2.4rem;padding:1rem 1.6rem;font-size:2.1rem;font-weight:700;line-height:1.5;text-align:center;margin-bottom:1.4rem;box-shadow:0 .5rem 1.4rem rgba(35,51,74,.16)}
+.bubble::after{content:"";position:absolute;bottom:-1.4rem;left:50%;margin-left:-1.2rem;border-width:1.4rem 1.2rem 0;border-style:solid;border-color:#fff transparent transparent}
+.kid .arm{transition:transform .45s cubic-bezier(.3,1.5,.5,1)}
+.anim .kid-wrap{animation:idle 3.4s ease-in-out infinite}
+.anim .m-left .kid-wrap{animation-delay:-1.7s}
+@keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-.8rem)}}
+.m-right .kid .arm-r{transform:rotate(78deg)}      /* Salim points toward the cards */
+.m-left .kid .arm-l{transform:rotate(-78deg)}      /* Maryam points toward the cards */
+.cheer .kid .arm-r{transform:rotate(150deg)}
+.cheer .kid .arm-l{transform:rotate(-150deg)}
+.anim .cheer .kid-wrap{animation:hop .5s ease 2}
+@keyframes hop{0%,100%{transform:translateY(0)}45%{transform:translateY(-2.4rem)}}
+
+.grid{flex:1;max-width:146rem;display:grid;grid-template-columns:1fr 1fr 1fr;grid-gap:1.8rem;gap:1.8rem;direction:rtl}
+
+/* ---------- Letter card ---------- */
+.card-wrap{position:relative;min-width:0}
+.card{position:relative;display:flex;flex-direction:row;align-items:center;height:100%;border-radius:3rem;overflow:hidden;padding:2.4rem 1.6rem 1rem;
+  background:var(--cc-bg);border:.4rem solid #fff;box-shadow:0 .9rem 0 var(--cc-d),0 1.6rem 2.6rem rgba(35,51,74,.16);
+  transition:transform .1s ease,box-shadow .1s ease}
+.card.pressing{transform:translateY(.7rem) scale(.985);box-shadow:0 .2rem 0 var(--cc-d),0 .6rem 1rem rgba(35,51,74,.14)}
+.anim .card.tapped{animation:tap .45s ease}
+@keyframes tap{40%{transform:scale(1.04)}}
+.c-letter-col{flex:none;width:17rem;display:flex;flex-direction:column;align-items:center}
+.c-letter{width:13rem;height:13rem;border-radius:50%;background:#fff;border:.6rem solid var(--cc);display:flex;align-items:center;justify-content:center;
+  font-size:9rem;font-weight:700;color:var(--cc-d);line-height:1;padding-bottom:.9rem;box-shadow:0 0 0 0 rgba(244,201,93,0)}
+.anim .c-letter{animation:glow 4s ease-in-out infinite}
+.anim .card-wrap:nth-child(3n+2) .c-letter{animation-delay:-1.3s}
+.anim .card-wrap:nth-child(3n) .c-letter{animation-delay:-2.6s}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(244,201,93,0)}50%{box-shadow:0 0 0 1rem rgba(244,201,93,.35)}}
+.c-name{font-size:3rem;font-weight:700;line-height:1.5;margin-top:.4rem;color:var(--navy);white-space:nowrap}
+.c-illus-col{flex:none;width:15rem;margin-right:1.2rem;display:flex;flex-direction:column;align-items:center}
+.c-illus{width:13rem;height:13rem;border-radius:2.4rem;background:#fff;padding:.8rem;box-shadow:inset 0 0 0 .3rem rgba(35,51,74,.06)}
+.c-illus svg{width:100%;height:100%}
+.c-word{font-size:2.8rem;line-height:1.6;margin-top:.2rem;font-weight:700;color:var(--cc-d);white-space:nowrap}
+.c-side{flex:none;width:6.4rem;align-self:stretch;margin-right:1rem;position:relative}
+.c-play{position:absolute;bottom:.4rem;left:0;width:6.4rem;height:6.4rem;border-radius:50%;background:var(--cc);display:flex;align-items:center;justify-content:center;box-shadow:0 .5rem 0 var(--cc-d)}
+.c-play svg{width:3rem;height:3rem}
+.info-btn{position:absolute;top:2.8rem;left:1.6rem;width:6.4rem;height:6.4rem;border-radius:50%;background:#fff;z-index:3;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 .5rem 0 rgba(35,51,74,.18);transition:transform .08s}
+.info-btn svg{width:3.6rem;height:3.6rem}
+.info-btn.pressing{transform:translateY(.3rem)}
+.no-words .c-word{display:none}
+.no-illus .c-illus-col{display:none}
+.sparkle{position:absolute;width:4rem;height:4rem;margin:-2rem 0 0 -2rem;pointer-events:none;z-index:5;animation:spark .8s ease-out forwards}
+.sparkle svg{width:100%;height:100%}
+.sparkle path{fill:#F4C95D;stroke:#C99A2E;stroke-width:1.2}
+@keyframes spark{from{transform:scale(.3);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(1);opacity:0}}
+
+/* Pastel colour themes (cycled) */
+.t0{--cc:#C62828;--cc-d:#8E1C1C;--cc-bg:#FFE9E4}
+.t1{--cc:#27864B;--cc-d:#1B5E35;--cc-bg:#E3F5E6}
+.t2{--cc:#2E86B8;--cc-d:#1F5F86;--cc-bg:#E2F2FB}
+.t3{--cc:#C99A2E;--cc-d:#8C6A17;--cc-bg:#FFF4D6}
+.t4{--cc:#7A4FA0;--cc-d:#56357A;--cc-bg:#F1E8FA}
+.t5{--cc:#D9822B;--cc-d:#9E5A15;--cc-bg:#FFEBD6}
+
+/* ---------- Coming soon ---------- */
+.soon{position:relative;max-width:150rem;margin:1rem auto 2rem;background:rgba(255,253,245,.92);border-radius:3rem;padding:3rem 2.4rem 2rem;overflow:hidden;box-shadow:0 .8rem 0 rgba(199,154,46,.3)}
+.soon h2{font-size:3rem;color:var(--green-d);text-align:center;line-height:1.5;margin-bottom:1.2rem}
+.soon-row{display:flex;flex-wrap:wrap;justify-content:center;direction:rtl}
+.soon-tile{position:relative;width:9.6rem;height:10.4rem;margin:.7rem;border-radius:2rem;background:#EFE7D6;border:.3rem dashed #CDBE9E;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:.85}
+.soon-tile b{font-size:5rem;line-height:1.3;color:#8A7A62}
+.soon-tile i{font-style:normal;font-size:1.7rem;color:#8A7A62;font-weight:700}
+
+footer{position:relative;text-align:center;padding:1rem 2rem 3rem;font-size:2.2rem;line-height:1.7;color:var(--navy)}
+footer .heart{color:var(--red)}
+footer b{display:block;font-size:2.4rem;color:var(--green-d)}
+
+/* ---------- Banner + modals ---------- */
+#netBanner{position:fixed;top:0;left:0;right:0;z-index:30;background:var(--navy);color:#fff;text-align:center;font-size:2.2rem;line-height:1.5;padding:1rem 2rem}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;z-index:40;background:rgba(35,51,74,.55);display:none;align-items:center;justify-content:center;padding:2rem}
+.modal.open{display:flex}
+.modal-card{position:relative;width:96rem;max-width:100%;max-height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--cream);border-radius:4rem;border:.5rem solid #fff;padding:4.4rem 4rem 3.4rem;box-shadow:0 3rem 6rem rgba(0,0,0,.3)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem}
+.modal-head h2{font-size:4rem;color:var(--red);line-height:1.4}
+.x-btn{width:7rem;height:7rem;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 .5rem 0 #E3CFA6;flex:none}
+.x-btn svg{width:3.4rem;height:3.4rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:8.4rem;padding:0 4rem;border-radius:5rem;font-size:3rem;font-weight:700;color:#fff;background:var(--green);
+  box-shadow:0 .7rem 0 var(--green-d);margin:.8rem;transition:transform .08s,box-shadow .08s}
+.btn.pressing{transform:translateY(.5rem);box-shadow:0 .2rem 0 var(--green-d)}
+.btn svg{width:3.4rem;height:3.4rem;margin-left:1.2rem}
+#pvPlay svg{margin-left:0;margin-right:1.2rem}
+.btn-light{background:#fff;color:var(--navy);box-shadow:0 .7rem 0 #E3CFA6}
+.btn-blue{background:#2E86B8;box-shadow:0 .7rem 0 #1F5F86}
+.btn-red{background:var(--red);box-shadow:0 .7rem 0 var(--red-d)}
+.btn.is-disabled{opacity:.4;pointer-events:none}
+.preview{display:flex;align-items:center;justify-content:center;flex-wrap:wrap}
+.preview .c-letter{width:22rem;height:22rem;font-size:15rem}
+.preview .p-text{margin:0 4rem;text-align:center}
+.preview .p-name{font-size:5rem;font-weight:700;line-height:1.5}
+.preview .p-word{font-size:4.4rem;font-weight:700;line-height:1.6;color:var(--cc-d)}
+.preview .c-illus{width:22rem;height:22rem}
+.p-actions{display:flex;justify-content:center;flex-wrap:wrap;margin-top:2.4rem}
+.set-row{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:2.4rem;padding:1.6rem 2.8rem;margin-bottom:1.4rem;min-height:10rem}
+.set-row .lbl{font-size:3rem;font-weight:700;line-height:1.5}
+.set-row .hint{display:block;font-size:2.2rem;font-weight:400;color:#6B7686;line-height:1.5}
+.switch{position:relative;width:12rem;height:6.8rem;border-radius:4rem;background:#D5CFC2;flex:none;transition:background .2s}
+.switch .knob{position:absolute;top:.6rem;right:.6rem;width:5.6rem;height:5.6rem;border-radius:50%;background:#fff;box-shadow:0 .3rem .8rem rgba(0,0,0,.2);transition:right .2s}
+.switch.on{background:var(--green)}
+.switch.on .knob{right:5.8rem}
+.switch .mark{position:absolute;top:0;line-height:6.8rem;font-size:2.2rem;font-weight:700;color:#fff}
+.switch .mark.yes{right:1.8rem;display:none}
+.switch .mark.no{left:2rem;color:#6B7686}
+.switch.on .mark.yes{display:block}
+.switch.on .mark.no{display:none}
+.segs{display:flex;flex-wrap:wrap}
+.seg{min-height:6.8rem;padding:0 2.6rem;margin:.5rem 0 .5rem 1rem;border-radius:3.4rem;background:#F3EBDA;font-size:2.5rem;font-weight:700;border:.4rem solid transparent}
+.seg.on{background:#E3F5E6;border-color:var(--green);color:var(--green-d)}
+.set-col{flex-direction:column;align-items:stretch}
+.info-note{font-size:2.3rem;line-height:1.7;color:#4A5568}
+
+/* =========================================================
+   FIT MODE — wide landscape screens (smart display, desktop):
+   1rem ≈ 1% of screen height, so title + all cards fit 1080p (3 columns up to 9 letters, 4 columns above; 4 rows from 13 letters, 5 rows from 17, 6×4 from 21, 7×4 from 25).
+   ========================================================= */
+.fit .hero{height:23rem}
+.fit .stage{height:77rem}
+.fit .grid{grid-template-rows:1fr 1fr 1fr}
+.fit .card-wrap{height:100%}
+.compact.fit .hero{height:16rem}
+.compact.fit .stage{height:84rem}
+.compact .title-plaque{padding:1.6rem 5rem .6rem}
+.compact .title-plaque .sub{display:none}
+.compact .lines .welcome{display:none}
+
+/* FIT + more than 9 letters → 4 compact columns */
+.fit.dense .grid{grid-template-columns:1fr 1fr 1fr 1fr;grid-gap:1.4rem;gap:1.4rem}
+.fit.dense .mascot{width:15rem}
+.fit.dense .mascot .kid-wrap{width:13.6rem;height:21.8rem}
+.fit.dense .bubble{font-size:1.9rem;padding:.9rem 1.2rem}
+.fit.dense .card{justify-content:center;padding:2.2rem 1rem .8rem 5.6rem}
+.fit.dense .c-side{display:none}
+.fit.dense .c-letter-col{width:13.4rem}
+.fit.dense .c-letter{width:11.2rem;height:11.2rem;font-size:7.6rem;border-width:.5rem;padding-bottom:.7rem}
+.fit.dense .c-name{font-size:2.6rem}
+.fit.dense .c-illus-col{width:13rem;margin-right:.8rem}
+.fit.dense .c-illus{width:11.2rem;height:11.2rem;padding:.6rem}
+.fit.dense .c-word{font-size:2.5rem}
+.fit.dense .info-btn{width:5rem;height:5rem;top:2.2rem;left:1rem}
+.fit.dense .info-btn svg{width:2.9rem;height:2.9rem}
+/* FIT + 13–16 letters → 4 rows: smaller circles and pictures */
+.fit.dense4 .grid{grid-gap:1.2rem;gap:1.2rem}
+.fit.dense4 .card{padding:2rem 1rem .6rem 5rem}
+.fit.dense4 .c-letter-col{width:11.6rem}
+.fit.dense4 .c-letter{width:9.4rem;height:9.4rem;font-size:6.4rem;padding-bottom:.6rem}
+.fit.dense4 .c-name{font-size:2.3rem;margin-top:.2rem}
+.fit.dense4 .c-illus-col{width:11rem}
+.fit.dense4 .c-illus{width:9.4rem;height:9.4rem;padding:.5rem;border-radius:2rem}
+.fit.dense4 .c-word{font-size:2.2rem;margin-top:0}
+.fit.dense4 .info-btn{width:4.4rem;height:4.4rem;top:1.9rem;left:.8rem}
+.fit.dense4 .info-btn svg{width:2.6rem;height:2.6rem}
+/* FIT + 17–20 letters → 5 rows: slimmer hero, smaller cards */
+.fit.dense5 .hero{height:19.5rem;padding-top:1rem}
+.fit.dense5 .stage{height:80.5rem;padding-bottom:1.2rem}
+.fit.dense5 .title-plaque{padding:1.6rem 5rem .5rem}
+.fit.dense5 .title-plaque h1{font-size:4.4rem}
+.fit.dense5 .title-plaque .sub{font-size:2.2rem}
+.fit.dense5 .lines{margin-top:.6rem}
+.fit.dense5 .pill{font-size:2.2rem;padding:.2rem 2rem}
+.fit.dense5 .grid{grid-gap:1rem;gap:1rem}
+.fit.dense5 .card{padding:1.9rem 1rem .4rem 4.8rem;border-radius:2.4rem}
+.fit.dense5 .c-letter-col{width:10.4rem}
+.fit.dense5 .c-letter{width:8.4rem;height:8.4rem;font-size:5.6rem;border-width:.45rem;padding-bottom:.5rem}
+.fit.dense5 .c-name{font-size:2.1rem;line-height:1.4;margin-top:.1rem}
+.fit.dense5 .c-illus-col{width:10rem}
+.fit.dense5 .c-illus{width:8.4rem;height:8.4rem;padding:.4rem;border-radius:1.8rem}
+.fit.dense5 .c-word{font-size:2rem;line-height:1.4}
+.fit.dense5 .info-btn{width:4.2rem;height:4.2rem;top:1.7rem;left:.7rem}
+.fit.dense5 .info-btn svg{width:2.4rem;height:2.4rem}
+/* FIT + 21–24 letters → 6 columns × 4 rows (mascots slimmer, words smaller) */
+.fit.dense6 .mascot{width:11rem}
+.fit.dense6 .mascot .kid-wrap{width:10rem;height:16rem}
+.fit.dense6 .bubble{font-size:1.6rem;padding:.7rem .8rem;margin-bottom:1rem}
+.fit.dense6 .grid{max-width:none;grid-gap:1.1rem;gap:1.1rem}
+.fit.dense6 .card{padding:2rem .4rem .6rem 4.9rem;border-radius:2.4rem;justify-content:flex-start}
+.fit.dense6 .c-letter-col{width:9.4rem}
+.fit.dense6 .c-letter{width:8.2rem;height:8.2rem;font-size:5.6rem;border-width:.45rem;padding-bottom:.5rem}
+.fit.dense6 .c-name{font-size:2.1rem}
+.fit.dense6 .c-illus-col{width:8.8rem;margin-right:.4rem}
+.fit.dense6 .c-illus{width:8.2rem;height:8.2rem;padding:.4rem;border-radius:1.8rem}
+.fit.dense6 .c-word{font-size:2rem}
+.fit.dense6 .info-btn{width:3.8rem;height:3.8rem;top:1.9rem;left:.5rem}
+.fit.dense6 .info-btn svg{width:2.2rem;height:2.2rem}
+/* 25–28 letters → 7 columns: hide the small word under the picture */
+.fit.dense7 .mascot{width:9rem}
+.fit.dense7 .mascot .bubble{display:none}
+.fit.dense7 .c-word{display:none}
+.fit.dense7 .grid{grid-gap:1rem;gap:1rem}
+.fit.dense7 .card{padding:2rem .3rem .6rem 4.3rem}
+.fit.dense7 .c-letter-col{width:8.6rem}
+.fit.dense7 .c-letter{width:7.6rem;height:7.6rem;font-size:5.2rem;border-width:.4rem}
+.fit.dense7 .c-name{font-size:2rem}
+.fit.dense7 .c-illus-col{width:7.8rem;margin-right:.3rem}
+.fit.dense7 .c-illus{width:7.6rem;height:7.6rem;padding:.35rem;border-radius:1.6rem}
+.fit.dense7 .info-btn{width:3.4rem;height:3.4rem;top:1.8rem;left:.4rem}
+.fit.dense7 .info-btn svg{width:2rem;height:2rem}
+
+/* =========================================================
+   FLOW MODE — tablets, portrait screens, phones: natural scroll
+   ========================================================= */
+.flow .hero{padding-top:10.4rem}
+.flow .brand{position:relative;top:auto;right:auto;display:inline-flex;margin-bottom:1.6rem;max-width:100%}
+.flow .brand span{white-space:normal}
+.flow .tools{top:1.6rem}
+.flow .stage{flex-wrap:wrap;padding-top:1rem}
+.flow .mascot{width:50%;order:0;flex-direction:row;align-items:flex-end;justify-content:center}
+.flow .mascot .kid-wrap{width:10rem;height:16rem}
+.flow .mascot .bubble{margin:0 1rem 6rem;font-size:2rem}
+.flow .mascot .bubble::after{display:none}
+.flow .grid{order:1;width:100%;flex:none;max-width:110rem;margin-top:1rem}
+.flow .card{flex-direction:column;padding:2.6rem 1.4rem 1.6rem}
+.flow .c-illus-col{margin:1rem 0 0}
+.flow .c-side{display:none}
+.flow .info-btn{top:2.6rem;left:1.2rem}
+.cols2 .grid{grid-template-columns:1fr 1fr}
+.cols1 .grid{grid-template-columns:1fr}
+
+
+/* ---------- Credit badge — Technology lab (shown on every page) ---------- */
+.credit{display:inline-flex;align-items:center;direction:ltr;unicode-bidi:isolate;white-space:nowrap;
+  font-family:"Segoe UI","Roboto","Helvetica Neue","Noto Sans","Arial",sans-serif;font-size:1.9rem;line-height:1.3;letter-spacing:.02em;color:#E9EEF5;
+  background:linear-gradient(135deg,#2A3D5A 0%,#1B2A42 60%,#16233A 100%);border-radius:4rem;padding:.8rem 2.6rem .8rem .9rem;
+  box-shadow:inset 0 0 0 .22rem rgba(244,201,93,.6),0 .7rem 1.8rem rgba(22,35,58,.28);pointer-events:none}
+.credit .cr-ico{flex:none;width:4.8rem;height:4.8rem;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3A5478,#1B2A42);
+  display:flex;align-items:center;justify-content:center;margin-right:1.4rem;box-shadow:0 0 0 .22rem #F4C95D}
+.credit .cr-ico svg{width:3.2rem;height:3.2rem}
+.credit .cr-k{opacity:.82;font-weight:400}
+.credit b{color:#F4C95D;font-weight:700;letter-spacing:.04em}
+.credit .cr-sep{color:#F4C95D;font-weight:700;padding:0 .3rem}
+.credit .cr-tel{display:inline-flex;align-items:center;font-weight:700;color:#fff;letter-spacing:.08em}
+.credit .cr-tel svg{width:1.8rem;height:1.8rem;margin-right:.6rem}
+.credit.small{font-size:1.6rem;padding:.6rem 2rem .6rem .7rem}
+.credit.small .cr-ico{width:3.8rem;height:3.8rem;margin-right:1.1rem}
+.credit.small .cr-ico svg{width:2.6rem;height:2.6rem}
+
+.hero-credit{position:absolute;top:10.4rem;left:2rem;z-index:2}
+.hero-credit .credit{font-size:1.45rem;padding:.55rem 1.8rem .55rem .6rem}
+.hero-credit .credit .cr-ico{width:3.6rem;height:3.6rem;margin-right:1rem}
+.hero-credit .credit .cr-ico svg{width:2.4rem;height:2.4rem}
+.flow .hero-credit{display:none}
+.foot-credit{margin-top:1.6rem}
+.flow .foot-credit .credit{white-space:normal;text-align:left;max-width:100%}
+
+/* ---------- Student record: «مَنْ أَنْتَ؟» ---------- */
+.ro-modal{position:fixed;top:0;left:0;width:100%;height:100%;z-index:70;background:rgba(35,51,74,.6);display:none;align-items:center;justify-content:center;padding:2rem}
+.ro-modal.open{display:flex}
+.ro-card{position:relative;display:flex;flex-direction:row;align-items:stretch;width:132rem;max-width:97%;max-height:96%;overflow:hidden;
+  background:var(--cream,#FFFDF5);border-radius:4.4rem;border:.6rem solid #fff;box-shadow:0 3rem 6rem rgba(0,0,0,.3)}
+.ro-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2rem;background-image:var(--pattern);background-size:4rem 2rem;background-repeat:repeat-x}
+.ro-kids{flex:none;width:34rem;display:flex;align-items:flex-end;justify-content:center;padding:4rem 1rem 2rem;background:linear-gradient(#DDF1F7,#F7E8C8)}
+.ro-kid{display:block;width:15rem;height:24rem}
+.ro-kid svg{width:100%;height:100%;overflow:visible}
+.ro-main{flex:1;min-width:0;padding:5rem 5rem 3rem;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ro-step{display:none}
+.ro-step.on{display:block}
+.ro-step h2{font-size:5.4rem;line-height:1.4;color:var(--red,#C62828)}
+.ro-sub{font-size:2.8rem;line-height:1.6;color:var(--ink,var(--navy,#23334A));margin:.6rem 0 2.4rem}
+.ro-input{display:block;width:100%;height:9.6rem;border-radius:3rem;border:.5rem solid #EAD3A6;background:#fff;padding:0 3rem;
+  font:inherit;font-size:4rem;font-weight:700;color:var(--ink,var(--navy,#23334A));-webkit-user-select:text;user-select:text;-webkit-appearance:none;outline:none}
+.ro-input:focus{border-color:var(--gold,#F4C95D);box-shadow:0 0 0 .6rem rgba(244,201,93,.35)}
+#roEmail{text-align:left;font-family:"Segoe UI","Roboto","Helvetica Neue","Noto Sans",Arial,sans-serif}
+.ro-domains{display:flex;flex-wrap:wrap;margin:1.4rem 0 0}
+.ro-chip{min-height:6.4rem;padding:0 2.6rem;margin:0 0 1rem 1.2rem;border-radius:3.2rem;background:#E2F2FB;color:#1F5F86;border:.35rem solid #8FD3F4;
+  font-family:"Segoe UI","Roboto",Arial,sans-serif;font-size:2.8rem;font-weight:700}
+.ro-actions{display:flex;flex-wrap:wrap;align-items:center;margin-top:2.6rem}
+.ro-btn{min-height:9rem;padding:0 4.6rem;margin:0 0 1.4rem 1.8rem;font-size:3.4rem;white-space:nowrap}
+.ro-btn.is-disabled,.ro-btn[disabled]{opacity:.45;pointer-events:none}
+.ro-status{min-height:3.6rem;font-size:2.6rem;line-height:1.5;font-weight:700;color:#4A5568;margin-top:.6rem}
+.ro-status.bad{color:var(--red,#C62828)}
+.ro-recent{margin-bottom:1.4rem}
+.ro-recent-t{font-size:2.3rem;font-weight:700;color:#6B7686;margin-bottom:1rem}
+.ro-person{display:inline-flex;flex-direction:column;align-items:flex-start;min-width:24rem;padding:1.2rem 2.4rem;margin:0 0 1.2rem 1.2rem;border-radius:2.6rem;
+  background:#fff;border:.4rem solid #E3CFA6;box-shadow:0 .6rem 0 #E3CFA6;text-align:right}
+.ro-person b{font-size:3.2rem;line-height:1.4;color:var(--ink,var(--navy,#23334A))}
+.ro-person span{font-family:"Segoe UI",Roboto,Arial,sans-serif;font-size:1.9rem;color:#6B7686;direction:ltr}
+.ro-person.pressing,.ro-chip.pressing{transform:translateY(.4rem)}
+.ro-summary p{font-size:3.2rem;line-height:1.7;margin:1rem 0}
+.ro-big{font-size:5rem;color:var(--red,#C62828);padding:0 .6rem}
+.ro-stages{display:flex;flex-wrap:wrap;margin:1.6rem 0 .6rem}
+.ro-st{font-size:2.8rem;font-weight:700;line-height:1.5;padding:.8rem 2.6rem;margin:0 0 1.2rem 1.2rem;border-radius:3rem;background:#F1ECE2;color:#8A7A62;border:.35rem dashed #CFC5B3}
+.ro-st.on{background:#E3F5E6;color:#1B5E35;border:.35rem solid #27864B}
+/* chip on the page: «👤 name — تغيير» */
+.ro-chipbar{position:absolute;z-index:8;display:inline-flex;align-items:center;max-width:60rem;padding:.8rem 1rem .8rem 2.4rem;border-radius:4rem;background:#fff;
+  box-shadow:0 .6rem 0 #E3CFA6,0 1rem 1.6rem rgba(35,51,74,.15);font-family:inherit;color:var(--ink,var(--navy,#23334A))}
+.ro-chipbar.pressing{transform:translateY(.4rem)}
+.ro-av{flex:none;width:5.6rem;height:5.6rem;border-radius:50%;background:var(--green,#27864B);color:#fff;font-size:3rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:1.4rem}
+.ro-nm{font-size:2.8rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ro-nm i{font-style:normal;color:#8A7A62;font-size:2.3rem}
+.ro-sw{flex:none;font-size:2.2rem;font-weight:700;color:#2E86B8;margin-right:1.6rem;border-right:.3rem solid #E3CFA6;padding-right:1.4rem}
+/* games: stage card already finished by this student */
+.mode-card.ro-done{box-shadow:0 0 0 .7rem #27864B,0 1rem 0 rgba(35,51,74,.2)}
+.ro-check{position:absolute;top:3.4rem;left:1.8rem;width:6rem;height:6rem;border-radius:50%;background:#27864B;color:#fff;font-size:3.6rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;border:.5rem solid #fff;box-shadow:0 .5rem 1rem rgba(0,0,0,.2);z-index:2}
+.ro-setbtns{display:flex;flex-wrap:wrap;margin-top:1.4rem}
+.ro-toast{position:fixed;z-index:75;left:50%;bottom:4rem;transform:translate(-50%,2rem);opacity:0;pointer-events:none;max-width:90%;background:#23334A;color:#fff;font-size:2.8rem;font-weight:700;line-height:1.5;padding:1.4rem 3.2rem;border-radius:3rem;box-shadow:0 1rem 2.4rem rgba(0,0,0,.25);transition:opacity .3s,transform .3s}
+.ro-toast.show{opacity:1;transform:translate(-50%,0)}
+.ro-setbtns .ro-btn{min-height:7.4rem;font-size:2.8rem;padding:0 3.4rem}
+.hero .ro-chipbar{top:10.4rem;right:2rem}
+.flow .hero .ro-chipbar{position:relative;top:auto;right:auto;margin:1.2rem auto 0}
+.ro-badge{position:absolute;z-index:4;bottom:1.6rem;left:1.4rem;min-width:5rem;height:5rem;padding:0 1rem;border-radius:2.5rem;display:flex;align-items:center;justify-content:center;
+  font-size:2.6rem;font-weight:700;border:.4rem solid #fff;box-shadow:0 .4rem 1rem rgba(0,0,0,.18);pointer-events:none}
+.ro-badge.full{background:#27864B;color:#fff;font-size:3rem}
+.ro-badge.part{background:#F4C95D;color:#23334A}
+.ro-full .card{box-shadow:0 0 0 .6rem #27864B,0 .9rem 0 var(--cc-d)}
+.ro-cur .card{box-shadow:0 0 0 .7rem var(--gold,#F4C95D),0 .9rem 0 var(--cc-d)}
+.anim .ro-cur .card{animation:roGlow 2s ease-in-out infinite}
+@keyframes roGlow{0%,100%{box-shadow:0 0 0 .5rem rgba(244,201,93,.9),0 .9rem 0 var(--cc-d)}50%{box-shadow:0 0 0 1.2rem rgba(244,201,93,.45),0 .9rem 0 var(--cc-d)}}
+.ro-next{position:absolute;z-index:4;top:-1.4rem;left:50%;transform:translateX(-50%);white-space:nowrap;background:#C62828;color:#fff;font-size:2rem;font-weight:700;
+  padding:.3rem 1.8rem;border-radius:2rem;box-shadow:0 .4rem 0 #8E1C1C;pointer-events:none}
+.fit.dense6 .ro-badge,.fit.dense7 .ro-badge{min-width:4rem;height:4rem;font-size:2rem;bottom:1rem;left:.8rem}
+.fit.dense6 .ro-next,.fit.dense7 .ro-next{font-size:1.6rem;padding:.2rem 1.2rem;top:-1.1rem}
+
+/* Reduced motion / animations off */
+.no-anim *,.no-anim *::before,.no-anim *::after{animation:none !important;transition:none !important}
+</style>
+</head>
+<body>
+<div id="scene" aria-hidden="true"></div>
+<div id="netBanner" class="hidden" role="status">لَا يُوجَدُ اتِّصَالٌ بِالْإِنْتَرْنِتِ الْآنَ — يُمْكِنُكُمُ اللَّعِبُ، وَيُحْفَظُ التَّقَدُّمُ عِنْدَ عَوْدَةِ الِاتِّصَالِ.</div>
+
+<div id="app">
+  <header class="hero">
+    <div class="floaters" id="floaters" aria-hidden="true"></div>
+    <div class="brand" id="brand"><span id="schoolName"></span></div><br class="flow-br">
+    <div class="tools">
+      <button class="tool" id="btnSettings" aria-label="إعدادات المعلّم" data-icon="gear"></button>
+      <button class="tool" id="btnSound" aria-label="الصوت"></button>
+      <button class="tool" id="btnFull" aria-label="ملء الشاشة" data-icon="full"></button>
+    </div>
+    <div class="hero-credit"><div class="credit small" dir="ltr" lang="en" role="note" title="Created by Technology lab - Altajheez Al Ilmi School - 79395837" aria-label="Created by Technology lab - Altajheez Al Ilmi School - 79395837"><span class="cr-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9 5.2v10.4l-9 5.2-9-5.2V6.8z" fill="none" stroke="#F4C95D" stroke-width="1.4"/><path d="M10 6.2h4M10.8 6.2v3.6L7.6 15.4a1.4 1.4 0 0 0 1.2 2.1h6.4a1.4 1.4 0 0 0 1.2-2.1l-3.2-5.6V6.2" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.9 13.6h6.2l1.1 1.8a1.4 1.4 0 0 1-1.2 2.1H8.8a1.4 1.4 0 0 1-1.2-2.1z" fill="#F4C95D"/><circle cx="18.6" cy="9" r="1" fill="#8FD3F4"/><circle cx="5.4" cy="9" r="1" fill="#8FD3F4"/><path d="M16.2 9h1.4M6.4 9h1.4" stroke="#8FD3F4" stroke-width=".9"/></svg></span><span class="cr-line"><span class="cr-k">Created by</span> <b>Technology lab</b><span class="cr-sep"> - </span>Altajheez Al Ilmi School<span class="cr-sep"> - </span><span class="cr-tel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5l2.6-.6 1.6 4.2-1.9 1.4a11 11 0 0 0 6.6 6.6l1.4-1.9 4.2 1.6-.6 2.6a2 2 0 0 1-2 1.6A16.5 16.5 0 0 1 5 5.5a2 2 0 0 1 1.6-2z" fill="#F4C95D"/></svg>79395837</span></span></div></div>
+    <div class="title-plaque">
+      <h1 id="title"></h1>
+      <div class="sub" id="subtitle"></div>
+    </div>
+    <div class="lines">
+      <span class="pill welcome" id="welcome"></span>
+      <span class="pill instr" id="instruction"></span>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+    <div class="mascot m-right" id="mRight"><div class="bubble" id="bubbleR"></div><div class="kid-wrap" data-kid="boy"></div></div>
+    <nav class="grid" id="grid" aria-label="الحروف"></nav>
+    <div class="mascot m-left" id="mLeft"><div class="bubble" id="bubbleL"></div><div class="kid-wrap" data-kid="girl"></div></div>
+  </main>
+
+  <section class="soon" id="soon" aria-label="حروف قادمة">
+    <h2>حُرُوفٌ قَادِمَةٌ — قَرِيبًا</h2>
+    <div class="soon-row" id="soonRow"></div>
+  </section>
+
+  <footer>
+    <b id="footSchool"></b>
+    <span id="footLine"></span>
+    <div class="foot-credit"><div class="credit" dir="ltr" lang="en" role="note" title="Created by Technology lab - Altajheez Al Ilmi School - 79395837" aria-label="Created by Technology lab - Altajheez Al Ilmi School - 79395837"><span class="cr-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9 5.2v10.4l-9 5.2-9-5.2V6.8z" fill="none" stroke="#F4C95D" stroke-width="1.4"/><path d="M10 6.2h4M10.8 6.2v3.6L7.6 15.4a1.4 1.4 0 0 0 1.2 2.1h6.4a1.4 1.4 0 0 0 1.2-2.1l-3.2-5.6V6.2" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.9 13.6h6.2l1.1 1.8a1.4 1.4 0 0 1-1.2 2.1H8.8a1.4 1.4 0 0 1-1.2-2.1z" fill="#F4C95D"/><circle cx="18.6" cy="9" r="1" fill="#8FD3F4"/><circle cx="5.4" cy="9" r="1" fill="#8FD3F4"/><path d="M16.2 9h1.4M6.4 9h1.4" stroke="#8FD3F4" stroke-width=".9"/></svg></span><span class="cr-line"><span class="cr-k">Created by</span> <b>Technology lab</b><span class="cr-sep"> - </span>Altajheez Al Ilmi School<span class="cr-sep"> - </span><span class="cr-tel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5l2.6-.6 1.6 4.2-1.9 1.4a11 11 0 0 0 6.6 6.6l1.4-1.9 4.2 1.6-.6 2.6a2 2 0 0 1-2 1.6A16.5 16.5 0 0 1 5 5.5a2 2 0 0 1 1.6-2z" fill="#F4C95D"/></svg>79395837</span></span></div></div>
+  </footer>
+</div>
+
+<!-- Letter preview (optional; the card itself always links directly) -->
+<div class="modal" id="preview" role="dialog" aria-label="معاينة الحرف">
+  <div class="modal-card" id="previewCard">
+    <div class="modal-head"><h2 id="pvTitle"></h2><button class="x-btn" data-close aria-label="إغلاق" data-icon="close"></button></div>
+    <div class="preview" id="pvBody"></div>
+    <div class="p-actions">
+      <a class="btn" id="pvPlay" href="#"><span>الْعَبِ الْآنَ</span></a>
+      <button class="btn btn-blue hidden" id="pvSpeak"><span>اسْتَمِعْ</span></button>
+      <button class="btn btn-light" data-close><span>رُجُوع</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Offline message -->
+<div class="modal" id="offline" role="dialog" aria-label="لا يوجد اتصال">
+  <div class="modal-card" style="text-align:center">
+    <div class="modal-head"><h2>لَا يُوجَدُ اتِّصَالٌ بِالْإِنْتَرْنِتِ</h2><button class="x-btn" data-close aria-label="إغلاق" data-icon="close"></button></div>
+    <p class="info-note" style="font-size:3rem">صَفْحَةُ اللُّعْبَةِ تَحْتَاجُ إِلَى الْإِنْتَرْنِتِ. اطْلُبِ الْمُسَاعَدَةَ، ثُمَّ حَاوِلْ مَرَّةً أُخْرَى.</p>
+    <div class="p-actions">
+      <a class="btn" id="offRetry" href="#"><span>حَاوِلْ مَرَّةً أُخْرَى</span></a>
+      <button class="btn btn-light" data-close><span>رُجُوع</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Teacher settings -->
+<div class="modal" id="settings" role="dialog" aria-label="إعدادات المعلّم">
+  <div class="modal-card">
+    <div class="modal-head"><h2>إِعْدَادَاتُ الْمُعَلِّمِ</h2><button class="x-btn" data-close aria-label="إغلاق" data-icon="close"></button></div>
+    <div id="setBody"></div>
+    <div class="p-actions"><button class="btn" data-close><span>حفظ وإغلاق</span></button></div>
+  </div>
+</div>
+
+<script>
+(function () {
+'use strict';
+
+/* =====================================================================
+   1. CONFIGURATION — edit texts here
+   ===================================================================== */
+var CONFIG = {
+  schoolName: 'مَدْرَسَةُ التَّجْهِيزِ الْعِلْمِيِّ الْخَاصَّةُ',
+  title: 'عَالَمُ الْحُرُوفِ الْعَرَبِيَّةِ',
+  subtitle: 'مَغَامَرَاتُ أَبْطَالِ الْحُرُوفِ فِي عُمَانَ',
+  welcome: 'مَرْحَبًا بِكُمْ يَا أَبْطَالَ الْحُرُوفِ!',
+  instruction: 'الْمَسِ الْحَرْفَ الَّذِي تُرِيدُ تَعَلُّمَهُ.',
+  salimSays: 'اخْتَرْ حَرْفًا وَابْدَأْ مُغَامَرَتَكَ!',
+  maryamSays: 'مَمْلَكَةُ الْحُرُوفِ تَنْتَظِرُكَ!',
+  footer: 'صُنِعَ بِحُبٍّ لِأَطْفَالِنَا فِي سَلْطَنَةِ عُمَانَ'
+};
+
+/* =====================================================================
+   2. LETTER PAGES — the single source of truth for every card.
+   • Active letters need a real URL and available:true.
+   • To add a letter later: fill in word / illustration / url and set
+     available:true. Letters without a URL are shown as «قَرِيبًا» and are
+     NOT links. URLs are kept exactly as supplied (browser encodes them).
+   ===================================================================== */
+var alphabetPages = [
+  { letter:'أ', name:'الْأَلِف', word:'أَسَد',   illustration:'lion',  available:true,
+    url:'letters/alif.html' },
+  { letter:'ب', name:'الْبَاء', word:'بَطَّة',   illustration:'duck',  available:true,
+    url:'letters/baa.html' },
+  { letter:'ت', name:'التَّاء', word:'تُفَّاح',  illustration:'apple', available:true,
+    url:'letters/taa.html' },
+  { letter:'ث', name:'الثَّاء', word:'ثَعْلَب',  illustration:'fox',   available:true,
+    url:'letters/thaa.html' },
+  { letter:'ج', name:'الْجِيم', word:'جَمَل',    illustration:'camel', available:true,
+    url:'letters/jeem.html' },
+  { letter:'ح', name:'الْحَاء', word:'حُوت',     illustration:'whale', available:true,
+    url:'letters/haa.html' },
+  { letter:'خ', name:'الْخَاء', word:'خَيْمَة',  illustration:'tent',  available:true,
+    url:'letters/khaa.html' },
+  { letter:'د', name:'الدَّال', word:'دُبّ',     illustration:'bear',  available:true,
+    url:'letters/daal.html' },
+  { letter:'ذ', name:'الذَّال', word:'ذِئْب',    illustration:'wolf',  available:true,
+    url:'letters/dhaal.html' },
+  { letter:'ر', name:'الرَّاء', word:'رُمَّان',  illustration:'pomegranate', available:true,
+    url:'letters/raa.html' },
+  { letter:'ز', name:'الزَّاي', word:'زَرَافَة',  illustration:'giraffe', available:true,
+    url:'letters/zaay.html' },
+  { letter:'س', name:'السِّين', word:'سَمَكَة',  illustration:'fish', available:true,
+    url:'letters/seen.html' },
+  { letter:'ش', name:'الشِّين', word:'شَجَرَة',  illustration:'tree', available:true,
+    url:'letters/sheen.html' },
+  { letter:'ص', name:'الصَّاد', word:'صَقْر',  illustration:'falcon', available:true,
+    url:'letters/saad.html' },
+  { letter:'ض', name:'الضَّاد', word:'ضِفْدَع',  illustration:'frog', available:true,
+    url:'letters/daad.html' },
+  { letter:'ط', name:'الطَّاء', word:'طَائِرَة',  illustration:'plane', available:true,
+    url:'letters/ttaa.html' },
+  { letter:'ظ', name:'الظَّاء', word:'ظَرْف',  illustration:'envelope', available:true,
+    url:'letters/zhaa.html' },
+  { letter:'ع', name:'الْعَيْن', word:'عِنَب',  illustration:'grapes', available:true,
+    url:'letters/ayn.html' },
+  { letter:'غ', name:'الْغَيْن', word:'غَزَال',  illustration:'gazelle', available:true,
+    url:'letters/ghayn.html' },
+  { letter:'ف', name:'الْفَاء', word:'فِيل',  illustration:'elephant', available:true,
+    url:'letters/faa.html' },
+  { letter:'ق', name:'الْقَاف', word:'قَمَر',  illustration:'moon', available:true,
+    url:'letters/qaaf.html' },
+  { letter:'ك', name:'الْكَاف', word:'كُرَة',  illustration:'ball', available:true,
+    url:'letters/kaaf.html' },
+  { letter:'ل', name:'اللَّام', word:'لَيْمُون',  illustration:'lemon', available:true,
+    url:'letters/laam.html' },
+  { letter:'م', name:'الْمِيم', word:'مَوْز',  illustration:'banana', available:true,
+    url:'letters/meem.html' },
+  { letter:'ن', name:'النُّون', word:'نَمِر',  illustration:'tiger', available:true,
+    url:'letters/noon.html' },
+  { letter:'ه', name:'الْهَاء', word:'هِلَال',  illustration:'crescent', available:true,
+    url:'letters/heh.html' },
+  { letter:'و', name:'الْوَاو', word:'وَرْدَة',  illustration:'roses', available:true,
+    url:'letters/waw.html' },
+  { letter:'ي', name:'الْيَاء', word:'يَمَامَة',  illustration:'dove', available:true,
+    url:'letters/yaa.html' }
+  // All 28 letters are now active. To add a page later, follow the same pattern.
+];
+
+/* =====================================================================
+   3. SETTINGS (localStorage with in-memory fallback)
+   ===================================================================== */
+var DEFAULTS = { sound:true, animations:true, linkMode:'auto', showWords:true, showIllus:true, compact:false, showSoon:true, roster:true, rosterRemember:true };
+var STORE_KEY = 'tajheezAlphabetHome.v1';
+var store = (function () {
+  var ok = false, mem = {};
+  try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); ok = true; } catch (e) {}
+  return {
+    load: function () { try { if (ok) return JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; } catch (e) {} return mem; },
+    save: function (o) { mem = o; try { if (ok) localStorage.setItem(STORE_KEY, JSON.stringify(o)); } catch (e) {} },
+    persistent: function () { return ok; }
+  };
+})();
+var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+var settings = {};
+function loadSettings() {
+  var s = store.load();
+  Object.keys(DEFAULTS).forEach(function (k) { settings[k] = (k in s) ? s[k] : DEFAULTS[k]; });
+  if (reduceMotion && !('animations' in s)) settings.animations = false;
+}
+function saveSettings() { store.save(settings); }
+
+/* Is this page running inside a frame (e.g. a Google Sites embed)? */
+var FRAMED = (function () { try { return window.self !== window.top; } catch (e) { return true; } })();
+/* Link target from the teacher setting.
+   auto → same tab normally; new tab when framed (embeds often block same-frame navigation). */
+function linkTarget() {
+  if (settings.linkMode === 'new') return '_blank';
+  if (settings.linkMode === 'same') return FRAMED ? '_top' : '_self';
+  return FRAMED ? '_blank' : '_self';
+}
+
+/* =====================================================================
+   4. SOUND (Web Audio; only after a user gesture) + Arabic speech
+   ===================================================================== */
+var Sound = {
+  ctx: null,
+  unlock: function () {
+    var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    try { if (!this.ctx) { this.ctx = new AC(); this.g = this.ctx.createGain(); this.g.gain.value = .3; this.g.connect(this.ctx.destination); }
+      if (this.ctx.state === 'suspended' && this.ctx.resume) this.ctx.resume(); } catch (e) { this.ctx = null; }
+  },
+  tone: function (f, at, d, type, v) {
+    var c = this.ctx, t = c.currentTime + at, o = c.createOscillator(), g = c.createGain();
+    o.type = type || 'sine'; o.frequency.setValueAtTime(f, t);
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(v || .5, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+    o.connect(g); g.connect(this.g); o.start(t); o.stop(t + d + .05);
+  },
+  play: function (name) {
+    if (!settings.sound) return;
+    this.unlock(); if (!this.ctx) return;
+    try {
+      if (name === 'click') this.tone(660, 0, .08, 'sine', .25);
+      else if (name === 'select') { this.tone(587.33, 0, .14, 'triangle', .45); this.tone(880, .09, .22, 'triangle', .45); }
+      else if (name === 'welcome') { var n = [523.25, 659.25, 783.99, 1046.5]; for (var i = 0; i < n.length; i++) this.tone(n[i], i * .12, .35, 'sine', .3); }
+    } catch (e) {}
+  }
+};
+var Speech = {
+  voice: null,
+  supported: !!(window.speechSynthesis && window.SpeechSynthesisUtterance),
+  init: function () {
+    if (!this.supported) return; var self = this;
+    var pick = function () {
+      try { var vs = speechSynthesis.getVoices() || [], best = null;
+        for (var i = 0; i < vs.length; i++) if ((vs[i].lang || '').toLowerCase().indexOf('ar') === 0) { if (!best || (vs[i].localService && !best.localService)) best = vs[i]; }
+        self.voice = best; } catch (e) {}
+    };
+    pick(); try { speechSynthesis.onvoiceschanged = pick; } catch (e) {}
+  },
+  // Never falls back to a non-Arabic voice
+  speak: function (t) {
+    if (!this.voice || !settings.sound) return;
+    try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t); u.voice = this.voice; u.lang = this.voice.lang; u.rate = .8; speechSynthesis.speak(u); } catch (e) {}
+  }
+};
+
+/* =====================================================================
+   5. ART — shared with the letter games
+   ===================================================================== */
+/* ---- Shared art (same as the letter games) ---- */
+var STAR_PATH = 'M12 2.4l2.95 6.05 6.65.95-4.8 4.65 1.15 6.6L12 17.5l-5.95 3.15 1.15-6.6L2.4 9.4l6.65-.95z';
+function starSVG(cls) { return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" aria-hidden="true"><path d="' + STAR_PATH + '"/></svg>'; }
+
+function boySVG() {
+  return '<svg class="kid kid-boy" viewBox="0 0 200 320" aria-hidden="true">' +
+  '<ellipse cx="100" cy="310" rx="62" ry="9" fill="rgba(70,45,20,.18)"/>' +
+  '<ellipse cx="80" cy="301" rx="18" ry="7" fill="#8B5A2B"/><ellipse cx="120" cy="301" rx="18" ry="7" fill="#8B5A2B"/>' +
+  '<ellipse cx="80" cy="296" rx="12" ry="6" fill="#B97A50"/><ellipse cx="120" cy="296" rx="12" ry="6" fill="#B97A50"/>' +
+  '<path d="M62 150 Q100 134 138 150 L156 294 Q100 304 44 294 Z" fill="#FFFFFF" stroke="#D8D2C4" stroke-width="3"/>' +
+  '<path d="M84 205 L78 290 M118 205 L124 290" stroke="#EEE9DD" stroke-width="3" fill="none"/>' +
+  '<path d="M86 150 Q100 164 114 150" stroke="#D8D2C4" stroke-width="3" fill="none"/>' +
+  '<path d="M100 160 L100 200" stroke="#C9A23A" stroke-width="3"/>' +
+  '<path d="M95 198 Q100 193 105 198 L108 220 Q100 225 92 220Z" fill="#C9A23A"/>' +
+  '<g class="arm arm-r" style="transform-origin:68px 158px"><path d="M72 152 Q52 160 46 200 L44 228 L62 230 L66 200 Q70 178 80 166Z" fill="#fff" stroke="#D8D2C4" stroke-width="3"/><circle cx="53" cy="237" r="10" fill="#C98E63"/></g>' +
+  '<g class="arm arm-l" style="transform-origin:132px 158px"><path d="M128 152 Q148 160 154 200 L156 228 L138 230 L134 200 Q130 178 120 166Z" fill="#fff" stroke="#D8D2C4" stroke-width="3"/><circle cx="147" cy="237" r="10" fill="#C98E63"/></g>' +
+  '<rect x="90" y="126" width="20" height="22" rx="7" fill="#B97A50"/>' +
+  '<g class="head" style="transform-origin:100px 132px">' +
+  '<circle cx="56" cy="94" r="10" fill="#C98E63"/><circle cx="144" cy="94" r="10" fill="#C98E63"/>' +
+  '<circle cx="100" cy="90" r="44" fill="#D9A06F"/>' +
+  '<path d="M55 80 C55 34 145 34 145 80 C124 71 76 71 55 80Z" fill="#FFFFFF" stroke="#D8D2C4" stroke-width="3"/>' +
+  '<path d="M60 74 C80 67 120 67 140 74" stroke="#C8102E" stroke-width="4" fill="none" stroke-dasharray="5 4"/>' +
+  '<path d="M66 62 C84 55 116 55 134 62" stroke="#2E8B57" stroke-width="3.5" fill="none" stroke-dasharray="3 5"/>' +
+  '<path d="M78 52 C92 46 108 46 122 52" stroke="#C9A23A" stroke-width="3" fill="none" stroke-dasharray="2 4"/>' +
+  '<circle cx="100" cy="44" r="4" fill="#C8102E"/>' +
+  '<path d="M75 84 q9 -6 18 0 M107 84 q9 -6 18 0" stroke="#3A2618" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
+  '<ellipse cx="84" cy="96" rx="5.5" ry="7" fill="#2B1D14"/><ellipse cx="116" cy="96" rx="5.5" ry="7" fill="#2B1D14"/>' +
+  '<circle cx="86" cy="93" r="2" fill="#fff"/><circle cx="118" cy="93" r="2" fill="#fff"/>' +
+  '<circle cx="72" cy="110" r="7" fill="#F08A7A" opacity=".45"/><circle cx="128" cy="110" r="7" fill="#F08A7A" opacity=".45"/>' +
+  '<path d="M100 100 q-4 8 0 10" stroke="#A8724A" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+  '<path d="M87 116 Q100 129 113 116 Z" fill="#fff" stroke="#7A3B2A" stroke-width="3" stroke-linejoin="round"/>' +
+  '</g></svg>';
+}
+function girlSVG() {
+  return '<svg class="kid kid-girl" viewBox="0 0 200 320" aria-hidden="true">' +
+  '<ellipse cx="100" cy="310" rx="60" ry="9" fill="rgba(70,45,20,.18)"/>' +
+  '<ellipse cx="80" cy="302" rx="16" ry="6.5" fill="#B5651D"/><ellipse cx="120" cy="302" rx="16" ry="6.5" fill="#B5651D"/>' +
+  '<rect x="67" y="280" width="26" height="18" rx="5" fill="#2E8B57"/><rect x="107" y="280" width="26" height="18" rx="5" fill="#2E8B57"/>' +
+  '<path d="M69 290 h22 M109 290 h22" stroke="#F2D27A" stroke-width="3" stroke-dasharray="3 3"/>' +
+  '<path d="M64 150 Q100 134 136 150 L152 284 Q100 294 48 284Z" fill="#C8102E"/>' +
+  '<path d="M50 268 Q100 278 150 268 L152 284 Q100 294 48 284Z" fill="#C9A23A"/>' +
+  '<path d="M54 276 Q100 286 146 276" stroke="#2E8B57" stroke-width="3" fill="none" stroke-dasharray="4 4"/>' +
+  '<path d="M93 152 L107 152 L110 236 L90 236Z" fill="#C9A23A"/>' +
+  '<path d="M100 160 l5 7 -5 7 -5 -7z M100 184 l5 7 -5 7 -5 -7z M100 208 l5 7 -5 7 -5 -7z" fill="#2E8B57"/>' +
+  '<g class="arm arm-r" style="transform-origin:70px 160px"><path d="M74 154 Q54 162 48 200 L46 226 L64 228 L68 200 Q72 180 82 168Z" fill="#C8102E"/><path d="M46 218 L64 220 L64 230 L46 228Z" fill="#C9A23A"/><circle cx="55" cy="237" r="9.5" fill="#C98E63"/></g>' +
+  '<g class="arm arm-l" style="transform-origin:130px 160px"><path d="M126 154 Q146 162 152 200 L154 226 L136 228 L132 200 Q128 180 118 168Z" fill="#C8102E"/><path d="M154 218 L136 220 L136 230 L154 228Z" fill="#C9A23A"/><circle cx="145" cy="237" r="9.5" fill="#C98E63"/></g>' +
+  '<g class="head" style="transform-origin:100px 140px">' +
+  '<path d="M50 98 C44 30 156 30 150 98 C156 150 128 166 100 166 C72 166 44 150 50 98Z" fill="#2E8B57"/>' +
+  '<g fill="#F2D27A"><circle cx="64" cy="128" r="3"/><circle cx="136" cy="128" r="3"/><circle cx="74" cy="148" r="3"/><circle cx="126" cy="148" r="3"/><circle cx="58" cy="104" r="3"/><circle cx="142" cy="104" r="3"/></g>' +
+  '<circle cx="100" cy="100" r="38" fill="#D9A06F"/>' +
+  '<path d="M60 96 C60 46 140 46 140 96 C128 72 72 72 60 96Z" fill="#2E8B57"/>' +
+  '<path d="M62 92 C74 72 126 72 138 92" stroke="#F2D27A" stroke-width="3.5" fill="none"/>' +
+  '<path d="M66 84 C78 66 122 66 134 84" stroke="#C8102E" stroke-width="3" fill="none" stroke-dasharray="3 4"/>' +
+  '<ellipse cx="86" cy="104" rx="5.5" ry="7" fill="#2B1D14"/><ellipse cx="114" cy="104" rx="5.5" ry="7" fill="#2B1D14"/>' +
+  '<circle cx="88" cy="101" r="2" fill="#fff"/><circle cx="116" cy="101" r="2" fill="#fff"/>' +
+  '<path d="M79 97 l-4 -3 M121 97 l4 -3" stroke="#2B1D14" stroke-width="2.4" stroke-linecap="round"/>' +
+  '<circle cx="75" cy="117" r="6.5" fill="#F08A7A" opacity=".5"/><circle cx="125" cy="117" r="6.5" fill="#F08A7A" opacity=".5"/>' +
+  '<path d="M100 108 q-3 6 0 8" stroke="#A8724A" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+  '<path d="M89 122 Q100 133 111 122 Z" fill="#fff" stroke="#7A3B2A" stroke-width="3" stroke-linejoin="round"/>' +
+  '</g></svg>';
+}
+
+/* --- Omani landscape: sun, clouds, Hajar mountains, sea + dhow, village,
+       Nizwa-style round-tower fort with flag, palms, dunes --- */
+function merlons(x0, x1, y, w, h, fill) {
+  var d = '';
+  for (var x = x0; x + w <= x1 + 0.1; x += w * 1.55) {
+    d += 'M' + x + ' ' + y + 'v' + (-h * 0.55) + 'h' + (w * 0.22) + 'v' + (-h * 0.45) + 'h' + (w * 0.56) + 'v' + (h * 0.45) + 'h' + (w * 0.22) + 'v' + (h * 0.55) + 'z';
+  }
+  return '<path d="' + d + '" fill="' + fill + '"/>';
+}
+function house(x, y, w, h) {
+  return '<g transform="translate(' + x + ' ' + y + ')">' +
+    '<rect x="0" y="' + (-h) + '" width="' + w + '" height="' + h + '" fill="#E8C99C"/>' +
+    '<rect x="' + (w * 0.62) + '" y="' + (-h) + '" width="' + (w * 0.38) + '" height="' + h + '" fill="#D9B584"/>' +
+    merlons(0, w, -h, 14, 12, '#E8C99C') +
+    '<path d="M' + (w * 0.18) + ' 0 v-30 q12 -14 24 0 v30z" fill="#8A5A33"/>' +
+    '<rect x="' + (w * 0.66) + '" y="' + (-h * 0.7) + '" width="14" height="18" rx="7" fill="#7A4A2A"/>' +
+    '<rect x="' + (w * 0.3) + '" y="' + (-h * 0.78) + '" width="12" height="14" rx="6" fill="#7A4A2A"/>' +
+  '</g>';
+}
+function buildScene() {
+  var s = '<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">';
+  s += '<defs><linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED8F3"/><stop offset=".55" stop-color="#DDF1F7"/><stop offset="1" stop-color="#FBEBD0"/></linearGradient>' +
+       '<linearGradient id="gSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6CC0DD"/><stop offset="1" stop-color="#3C93B8"/></linearGradient>' +
+       '<g id="palm"><path d="M0 0 C-6 -60 4 -120 10 -170" stroke="#8A5A33" stroke-width="16" fill="none" stroke-linecap="round"/>' +
+       '<path d="M-7 -28l15 -4M-5 -58l15 -4M-1 -88l15 -4M3 -118l14 -4M7 -146l12 -3" stroke="#6E4527" stroke-width="4"/>' +
+       '<g transform="translate(10 -170)" fill="#3F9A55"><path d="M0 0C-40 -40 -100 -30 -130 10C-90 -10 -40 -10 0 0Z"/><path d="M0 0C40 -40 100 -30 130 10C90 -10 40 -10 0 0Z"/>' +
+       '<path d="M0 0C-20 -50 -70 -70 -100 -60C-60 -45 -30 -30 0 0Z"/><path d="M0 0C20 -50 70 -70 100 -60C60 -45 30 -30 0 0Z"/>' +
+       '<path d="M0 0C-50 -10 -90 30 -100 70C-70 30 -40 10 0 0Z" fill="#2E8048"/><path d="M0 0C50 -10 90 30 100 70C70 30 40 10 0 0Z" fill="#2E8048"/>' +
+       '<path d="M0 0C-6 -40 6 -80 0 -96C16 -70 10 -35 0 0Z"/>' +
+       '<circle cx="-9" cy="12" r="6" fill="#B5651D"/><circle cx="3" cy="16" r="6" fill="#A0521A"/><circle cx="13" cy="10" r="6" fill="#B5651D"/></g></g>' +
+       '<g id="cloud"><circle cx="0" cy="0" r="38"/><circle cx="44" cy="-14" r="48"/><circle cx="92" cy="2" r="36"/><rect x="0" y="0" width="92" height="36"/></g></defs>';
+  s += '<rect width="1920" height="1080" fill="url(#gSky)"/>';
+  // Sun
+  s += '<g transform="translate(240 165)"><g class="sun-rays">';
+  for (var i = 0; i < 12; i++) s += '<rect x="-7" y="-130" width="14" height="34" rx="7" fill="#FFC93C" transform="rotate(' + (i * 30) + ')"/>';
+  s += '</g><circle r="84" fill="#FFD45C"/><circle r="72" fill="#FFDF7E"/>' +
+       '<path d="M-32 -8q11 -11 22 0M10 -8q11 -11 22 0" stroke="#C98B2B" stroke-width="6" fill="none" stroke-linecap="round"/>' +
+       '<path d="M-26 18q26 24 52 0" stroke="#C98B2B" stroke-width="6" fill="none" stroke-linecap="round"/>' +
+       '<circle cx="-44" cy="14" r="10" fill="#F7A35C" opacity=".55"/><circle cx="44" cy="14" r="10" fill="#F7A35C" opacity=".55"/></g>';
+  // Clouds
+  s += '<g transform="translate(620 150)" fill="#fff" opacity=".92"><g class="cloud-drift"><use xlink:href="#cloud" href="#cloud"/></g></g>';
+  s += '<g transform="translate(1180 110) scale(.8)" fill="#fff" opacity=".85"><g class="cloud-drift slow"><use xlink:href="#cloud" href="#cloud"/></g></g>';
+  s += '<g transform="translate(1600 230) scale(.65)" fill="#fff" opacity=".85"><g class="cloud-drift"><use xlink:href="#cloud" href="#cloud"/></g></g>';
+  // Mountains (Hajar)
+  s += '<path d="M0 600L170 470L320 560L520 390L700 540L880 430L1080 560L1270 410L1460 540L1650 430L1920 560V780H0Z" fill="#E3C7A6"/>';
+  s += '<path d="M0 680L210 560L380 640L600 520L820 650L1000 580L1200 670L1420 590L1640 660L1920 590V800H0Z" fill="#D2AD86"/>';
+  // Sea + dhow
+  s += '<path d="M0 700H840C780 730 720 752 650 772H0Z" fill="url(#gSea)"/>';
+  s += '<path d="M40 722q20 -8 40 0t40 0M220 742q20 -8 40 0t40 0M480 726q20 -8 40 0t40 0" stroke="#fff" stroke-width="4" fill="none" opacity=".7" stroke-linecap="round"/>';
+  s += '<g transform="translate(350 712)"><path d="M-90 0H92L64 30H-58Z" fill="#8A5A33"/><path d="M-80 4H84" stroke="#C9A23A" stroke-width="4"/>' +
+       '<path d="M0 0V-112" stroke="#5E3B20" stroke-width="5"/><path d="M-24 -118L84 -20L-14 -8Z" fill="#FFF7E6" stroke="#E0D3B8" stroke-width="3"/></g>';
+  // Village
+  s += house(760, 770, 120, 90) + house(900, 770, 90, 70) + house(1010, 775, 130, 105);
+  // Fort (round tower + walls + flag)
+  s += '<g transform="translate(1250 0)">' +
+       '<rect x="0" y="600" width="470" height="180" fill="#DDBB90"/>' + merlons(0, 470, 600, 22, 20, '#DDBB90') +
+       '<rect x="20" y="520" width="80" height="260" fill="#E6C79C"/>' + merlons(20, 100, 520, 20, 18, '#E6C79C') +
+       '<rect x="380" y="540" width="76" height="240" fill="#D7B385"/>' + merlons(380, 456, 540, 19, 18, '#D7B385') +
+       '<path d="M160 780L174 440Q245 424 316 440L330 780Z" fill="#EBCDA2"/>' +
+       '<path d="M245 434Q284 436 316 440L330 780H245Z" fill="#D9B584"/>' +
+       merlons(170, 320, 440, 22, 22, '#EBCDA2') +
+       '<rect x="226" y="500" width="16" height="26" rx="8" fill="#7A4A2A"/><rect x="262" y="560" width="16" height="26" rx="8" fill="#7A4A2A"/><rect x="200" y="600" width="16" height="26" rx="8" fill="#7A4A2A"/>' +
+       '<path d="M205 780v-74q40 -44 80 0v74z" fill="#7A4A2A"/><path d="M245 780v-112" stroke="#5E3B20" stroke-width="4"/>' +
+       '<g fill="#C9A23A"><circle cx="222" cy="720" r="3.5"/><circle cx="222" cy="745" r="3.5"/><circle cx="268" cy="720" r="3.5"/><circle cx="268" cy="745" r="3.5"/></g>' +
+       '<rect x="44" y="580" width="14" height="22" rx="7" fill="#7A4A2A"/><rect x="408" y="600" width="14" height="22" rx="7" fill="#7A4A2A"/>' +
+       '<path d="M245 420V330" stroke="#5E3B20" stroke-width="5" stroke-linecap="round"/>' +
+       '<g transform="translate(247 332)"><rect width="90" height="57" fill="#C8102E"/><rect x="24" width="66" height="19" fill="#FFFFFF"/><rect x="24" y="38" width="66" height="19" fill="#2E8B57"/>' +
+       '<circle cx="12" cy="10" r="4" fill="#FFFFFF"/></g>' +
+       '</g>';
+  // Palms
+  [[640, 800, 1.05], [720, 815, 0.8], [1180, 805, 0.95], [1770, 800, 1.1], [1860, 820, 0.8], [90, 820, 0.95]].forEach(function (p) {
+    s += '<use xlink:href="#palm" href="#palm" transform="translate(' + p[0] + ' ' + p[1] + ') scale(' + p[2] + ')"/>';
+  });
+  // Dunes
+  s += '<path d="M0 770C300 740 600 785 960 762C1300 742 1600 785 1920 755V1080H0Z" fill="#EFD3A0"/>';
+  s += '<path d="M0 900C400 860 800 920 1200 885C1500 862 1750 895 1920 872V1080H0Z" fill="#F5E0B5"/>';
+  s += '</svg>';
+  return s;
+}
+
+
+var ILLUS = {
+  lion: '<g fill="#C46F1E"><circle cx="60" cy="16" r="11"/><circle cx="96" cy="31" r="11"/><circle cx="106" cy="64" r="11"/><circle cx="94" cy="98" r="11"/><circle cx="60" cy="110" r="11"/><circle cx="26" cy="98" r="11"/><circle cx="14" cy="64" r="11"/><circle cx="24" cy="31" r="11"/></g><circle cx="60" cy="62" r="45" fill="#D9822B"/><circle cx="37" cy="38" r="9" fill="#F6C453"/><circle cx="83" cy="38" r="9" fill="#F6C453"/><circle cx="60" cy="64" r="32" fill="#F6C453"/><ellipse cx="60" cy="78" rx="15" ry="10" fill="#FBE3A1"/><circle cx="49" cy="58" r="4.2" fill="#3A2A1A"/><circle cx="71" cy="58" r="4.2" fill="#3A2A1A"/><path d="M53 70h14l-7 7z" fill="#7A4A2A"/><path d="M60 77q-6 7 -11 3M60 77q6 7 11 3" stroke="#7A4A2A" stroke-width="2.5" fill="none" stroke-linecap="round"/>',
+  duck: '<ellipse cx="60" cy="108" rx="44" ry="7" fill="#8FD3F4" opacity=".7"/><path d="M18 74C18 56 34 50 50 56L66 60C78 52 100 56 104 72C110 96 84 104 60 104C34 104 18 94 18 74Z" fill="#FFD23F"/><path d="M50 74C58 66 76 66 84 78C74 84 58 84 50 74Z" fill="#F2B800"/><circle cx="42" cy="38" r="20" fill="#FFD23F"/><path d="M20 40L2 46L20 50Z" fill="#F28C28"/><circle cx="38" cy="34" r="3.6" fill="#2B1D14"/><circle cx="39" cy="33" r="1.2" fill="#fff"/><circle cx="46" cy="44" r="4" fill="#F7A35C" opacity=".6"/>',
+  apple: '<path d="M60 30C62 18 70 10 78 8" stroke="#6E4527" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M64 22C72 10 90 10 98 18C88 28 74 28 64 22Z" fill="#3F9A55"/><path d="M60 34C44 24 16 30 16 62C16 92 38 112 52 112C56 112 58 110 60 110C62 110 64 112 68 112C82 112 104 92 104 62C104 30 76 24 60 34Z" fill="#D7263D"/><path d="M60 34C76 24 104 30 104 62C104 92 82 112 68 112" fill="#B81E33" opacity=".55"/><ellipse cx="36" cy="54" rx="7" ry="13" fill="#fff" opacity=".35" transform="rotate(20 36 54)"/>',
+  fox: '<path d="M86 96C108 98 118 80 110 62C104 76 94 82 80 82Z" fill="#E07B2A"/><path d="M104 66C110 74 112 84 106 92C100 88 98 80 104 66Z" fill="#FFF4E6"/><ellipse cx="66" cy="88" rx="26" ry="18" fill="#E07B2A"/><path d="M60 98C62 106 64 110 64 110M76 98C78 106 78 110 78 110" stroke="#7A3E1D" stroke-width="7" stroke-linecap="round"/><path d="M22 24L36 50L18 46Z M70 24L56 50L74 46Z" fill="#E07B2A"/><path d="M24 30L33 46L22 44Z M68 30L59 46L70 44Z" fill="#5E2E14"/><path d="M14 50C14 38 30 34 46 34C62 34 78 38 78 50C78 62 64 80 46 84C28 80 14 62 14 50Z" fill="#F28C38"/><path d="M14 54C22 66 34 74 46 84C58 74 70 66 78 54C66 62 56 66 46 66C36 66 26 62 14 54Z" fill="#FFF4E6"/><circle cx="34" cy="52" r="4.5" fill="#2B1D14"/><circle cx="58" cy="52" r="4.5" fill="#2B1D14"/><circle cx="35.5" cy="50.5" r="1.5" fill="#fff"/><circle cx="59.5" cy="50.5" r="1.5" fill="#fff"/><ellipse cx="46" cy="76" rx="5" ry="4" fill="#2B1D14"/><path d="M40 70q6 4 12 0" stroke="#7A3E1D" stroke-width="2.4" fill="none" stroke-linecap="round"/>',
+  camel: '<rect width="120" height="120" fill="#DDF1F7"/><circle cx="96" cy="22" r="11" fill="#FFD45C"/><path d="M0 92C30 80 70 88 120 78V120H0Z" fill="#E8B872"/><path d="M0 104C40 96 80 106 120 98V120H0Z" fill="#F0C98A"/><g fill="#C48A4E"><path d="M30 66C30 50 40 40 50 44C56 34 68 34 72 46C76 52 78 58 78 66Z"/><path d="M74 60L84 34L92 30L100 34L98 40L90 40L84 64Z"/><path d="M36 66v30h6V70M48 66v30h6V70M64 66v30h6V70M74 64v32h6V66" stroke="#C48A4E" stroke-width="2"/></g><path d="M96 34l4 -4" stroke="#A8743E" stroke-width="2.5" stroke-linecap="round"/><circle cx="93" cy="35" r="1.8" fill="#2B1D14"/><path d="M42 52C48 44 62 44 68 52" fill="none" stroke="#C8102E" stroke-width="5"/><path d="M44 52h24" stroke="#2E8B57" stroke-width="3" stroke-dasharray="3 3"/><path d="M30 70q-8 10 -6 18" stroke="#A8743E" stroke-width="3" fill="none" stroke-linecap="round"/>',
+  whale: '<path d="M54 30q-4 -10 -10 -14M54 30q2 -12 8 -16M54 30q6 -8 14 -8" stroke="#6CC0DD" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M8 66C8 44 30 34 54 36C82 38 96 52 100 66L114 52C118 62 116 76 110 84L102 80C94 96 72 104 50 102C24 100 8 86 8 66Z" fill="#3C93B8"/><path d="M14 76C24 92 44 98 64 96C80 94 92 88 98 80C80 86 40 88 14 76Z" fill="#BFE3F2"/><circle cx="30" cy="62" r="5" fill="#2B1D14"/><circle cx="31.5" cy="60.5" r="1.6" fill="#fff"/><path d="M20 74q8 6 16 2" stroke="#2B1D14" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="40" cy="72" r="4" fill="#F7B7C3" opacity=".7"/><path d="M50 84q8 10 18 4" fill="#276E8E"/><path d="M0 108q10 -6 20 0t20 0t20 0t20 0t20 0t20 0" stroke="#8FD3F4" stroke-width="4" fill="none"/>',
+  tent: '<rect width="120" height="120" fill="#DDF1F7"/><circle cx="96" cy="22" r="10" fill="#FFD45C"/><path d="M0 88C30 78 80 92 120 82V120H0Z" fill="#E8B872"/><path d="M0 102C40 94 80 104 120 96V120H0Z" fill="#F0C98A"/><path d="M14 92L24 52H96L106 92Z" fill="#3A2A20"/><path d="M24 52Q60 40 96 52" fill="none" stroke="#2A1E16" stroke-width="3"/><g stroke="#C8102E" stroke-width="4"><path d="M18 76H102"/></g><g stroke="#F2D27A" stroke-width="2" stroke-dasharray="3 3"><path d="M18 80H102"/></g><path d="M48 92V62H72V92Z" fill="#C8102E"/><path d="M52 92V66H68V92Z" fill="#940A21"/><path d="M60 52V40" stroke="#8A5A33" stroke-width="3"/><path d="M8 94l8 -2M112 94l-8 -2" stroke="#8A5A33" stroke-width="2"/><path d="M36 52v40M84 52v40" stroke="#2A1E16" stroke-width="2"/>',
+  bear: '<circle cx="30" cy="30" r="14" fill="#9C6A3E"/><circle cx="90" cy="30" r="14" fill="#9C6A3E"/><circle cx="30" cy="30" r="7" fill="#D9A07A"/><circle cx="90" cy="30" r="7" fill="#D9A07A"/><circle cx="60" cy="62" r="42" fill="#B07A45"/><ellipse cx="60" cy="78" rx="20" ry="16" fill="#E8C49A"/><circle cx="44" cy="56" r="5" fill="#2B1D14"/><circle cx="76" cy="56" r="5" fill="#2B1D14"/><circle cx="45.5" cy="54.5" r="1.6" fill="#fff"/><circle cx="77.5" cy="54.5" r="1.6" fill="#fff"/><ellipse cx="60" cy="70" rx="7" ry="5" fill="#2B1D14"/><path d="M60 75v5M52 82q8 6 16 0" stroke="#2B1D14" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="34" cy="70" r="5" fill="#F28CA0" opacity=".5"/><circle cx="86" cy="70" r="5" fill="#F28CA0" opacity=".5"/>',
+  wolf: '<path d="M26 18L40 46L22 44Z M94 18L80 46L98 44Z" fill="#7E8A94"/><path d="M28 24L37 42L26 41Z M92 24L83 42L94 41Z" fill="#F4D9C6"/><path d="M18 50C18 34 38 30 60 30C82 30 102 34 102 50C102 70 84 96 60 100C36 96 18 70 18 50Z" fill="#9AA5AE"/><path d="M18 56C28 72 44 84 60 100C76 84 92 72 102 56C88 66 74 70 60 70C46 70 32 66 18 56Z" fill="#EEF1F3"/><circle cx="44" cy="52" r="5" fill="#2B1D14"/><circle cx="76" cy="52" r="5" fill="#2B1D14"/><circle cx="45.5" cy="50.5" r="1.6" fill="#fff"/><circle cx="77.5" cy="50.5" r="1.6" fill="#fff"/><ellipse cx="60" cy="80" rx="7" ry="5" fill="#2B1D14"/><path d="M53 88q7 5 14 0" stroke="#5E6A74" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="36" cy="66" r="4" fill="#F7B7C3" opacity=".5"/><circle cx="84" cy="66" r="4" fill="#F7B7C3" opacity=".5"/>',
+  pomegranate: '<path d="M52 22l4 -12 4 8 4 -8 4 12z" fill="#A01E2E"/><circle cx="60" cy="66" r="42" fill="#C62828"/><path d="M60 24c22 0 42 18 42 42c0 24 -18 42 -42 42c16 -8 28 -24 28 -42s-12 -34 -28 -42z" fill="#A01E2E" opacity=".55"/><ellipse cx="38" cy="50" rx="8" ry="14" fill="#fff" opacity=".3" transform="rotate(20 38 50)"/><g transform="translate(74 84)"><path d="M-22 0a22 22 0 0 1 44 0z" fill="#FFF0E8"/><g fill="#E0314A"><circle cx="-12" cy="-6" r="4"/><circle cx="-3" cy="-11" r="4"/><circle cx="7" cy="-10" r="4"/><circle cx="14" cy="-4" r="3.6"/><circle cx="2" cy="-3" r="3.6"/><circle cx="-8" cy="-1" r="3"/></g><path d="M-22 0h44" stroke="#A01E2E" stroke-width="3"/></g>',
+  giraffe: '<rect width="120" height="120" fill="#DDF1F7"/><path d="M0 104H120V120H0Z" fill="#B9D98A"/><path d="M48 104V70M58 104V72M78 104V72M88 104V70" stroke="#E8B04A" stroke-width="6" stroke-linecap="round"/><ellipse cx="68" cy="68" rx="26" ry="14" fill="#F2C055"/><path d="M50 66L38 22L50 18L58 62Z" fill="#F2C055"/><g transform="translate(40 18)"><ellipse cx="0" cy="0" rx="13" ry="9" fill="#F2C055" transform="rotate(-20)"/><ellipse cx="-10" cy="4" rx="6" ry="5" fill="#E8C49A"/><circle cx="2" cy="-3" r="2.2" fill="#2B1D14"/><path d="M4 -8l2 -8M10 -6l4 -6" stroke="#9C6A3E" stroke-width="2.4" stroke-linecap="round"/><circle cx="6" cy="-16" r="2" fill="#9C6A3E"/><circle cx="14" cy="-12" r="2" fill="#9C6A3E"/></g><g fill="#B5651D"><circle cx="46" cy="32" r="3"/><circle cx="50" cy="46" r="3.4"/><circle cx="54" cy="58" r="3"/><circle cx="62" cy="64" r="4"/><circle cx="74" cy="70" r="4.4"/><circle cx="84" cy="64" r="3.6"/><circle cx="70" cy="60" r="3"/></g><path d="M94 66q8 4 6 14" stroke="#B5651D" stroke-width="2.5" fill="none" stroke-linecap="round"/>',
+  fish: '<rect width="120" height="120" fill="#DDF1F7"/><path d="M0 96q10 -4 20 0t20 0t20 0t20 0t20 0t20 0V120H0Z" fill="#6CC0DD"/><path d="M16 58C26 36 60 30 82 46L104 30V86L82 70C60 86 26 80 16 58Z" fill="#F7931E" stroke="#C46F1E" stroke-width="2.5" stroke-linejoin="round"/><path d="M46 40C50 50 50 66 46 76" stroke="#C46F1E" stroke-width="2.5" fill="none"/><path d="M58 44q6 4 0 8M58 56q6 4 0 8M68 48q6 4 0 8M68 60q6 4 0 8" stroke="#FFD45C" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="32" cy="54" r="5" fill="#fff"/><circle cx="31" cy="54" r="2.8" fill="#2B1D14"/><path d="M18 62q4 3 8 1" stroke="#8A4A14" stroke-width="2" fill="none" stroke-linecap="round"/><g fill="#fff" stroke="#8FD3F4" stroke-width="1.5"><circle cx="16" cy="36" r="4"/><circle cx="22" cy="24" r="3"/><circle cx="12" cy="16" r="2.4"/></g>',
+  tree: '<path d="M54 112V64h12v48" fill="#8A5A33"/><path d="M60 80l-14 -12M60 74l14 -10" stroke="#8A5A33" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="40" r="28" fill="#3F9A55"/><circle cx="36" cy="56" r="20" fill="#4FAA5E"/><circle cx="84" cy="56" r="20" fill="#4FAA5E"/><circle cx="60" cy="62" r="18" fill="#3F9A55"/><g fill="#D7263D"><circle cx="48" cy="34" r="4"/><circle cx="72" cy="30" r="4"/><circle cx="34" cy="58" r="4"/><circle cx="86" cy="54" r="4"/><circle cx="62" cy="54" r="4"/></g><path d="M30 112h60" stroke="#C9A23A" stroke-width="4" stroke-linecap="round"/>',
+  falcon: '<path d="M14 112h92" stroke="#8A5A33" stroke-width="6" stroke-linecap="round"/><path d="M46 110l-4 -10M74 110l4 -10" stroke="#F4C95D" stroke-width="4" stroke-linecap="round"/><path d="M36 96C30 70 38 46 56 40C74 34 90 46 90 68C90 84 82 96 70 102H50C44 102 38 100 36 96Z" fill="#8A6A4A"/><path d="M44 96C42 76 50 62 62 60C74 58 82 68 80 82C78 92 72 100 62 102H52Z" fill="#F4E3C4"/><g fill="#8A6A4A"><path d="M52 72q4 3 8 0M60 82q4 3 8 0M50 88q4 3 8 0M64 92q4 3 8 0"/></g><path d="M86 56C100 62 106 80 100 100C92 90 88 78 86 66Z" fill="#6E5236"/><circle cx="62" cy="34" r="18" fill="#8A6A4A"/><path d="M50 34C50 26 56 22 62 22" stroke="#6E5236" stroke-width="3" fill="none"/><circle cx="58" cy="32" r="6" fill="#F4C95D"/><circle cx="58" cy="32" r="3" fill="#2B1D14"/><path d="M58 40C54 44 52 48 56 50" stroke="#5E3B20" stroke-width="2" fill="none"/><path d="M46 34L36 38L44 44Z" fill="#F4C95D" stroke="#C99A2E" stroke-width="1.5"/><path d="M38 38q-2 4 2 6" stroke="#23334A" stroke-width="2" fill="none"/>',
+  frog: '<ellipse cx="60" cy="106" rx="44" ry="8" fill="#6CC0DD"/><ellipse cx="60" cy="100" rx="36" ry="6" fill="#4FAA5E"/><ellipse cx="60" cy="76" rx="40" ry="26" fill="#7CC36E" stroke="#3F8A3A" stroke-width="2.5"/><circle cx="38" cy="46" r="15" fill="#7CC36E" stroke="#3F8A3A" stroke-width="2.5"/><circle cx="82" cy="46" r="15" fill="#7CC36E" stroke="#3F8A3A" stroke-width="2.5"/><circle cx="38" cy="46" r="8" fill="#fff"/><circle cx="82" cy="46" r="8" fill="#fff"/><circle cx="40" cy="47" r="4.4" fill="#2B1D14"/><circle cx="84" cy="47" r="4.4" fill="#2B1D14"/><path d="M36 74Q60 94 84 74" stroke="#2B5E28" stroke-width="3.4" fill="none" stroke-linecap="round"/><circle cx="30" cy="70" r="5" fill="#F28CA0" opacity=".55"/><circle cx="90" cy="70" r="5" fill="#F28CA0" opacity=".55"/><ellipse cx="60" cy="86" rx="20" ry="8" fill="#B9E3A8"/>',
+  plane: '<rect width="120" height="120" fill="#BFE6F5"/><g fill="#fff"><circle cx="20" cy="90" r="10"/><circle cx="34" cy="84" r="13"/><circle cx="48" cy="92" r="9"/><circle cx="90" cy="24" r="8"/><circle cx="102" cy="20" r="10"/></g><path d="M10 64C10 58 16 54 24 54H96C106 54 114 60 114 64C114 68 106 72 96 72H24C16 72 10 70 10 64Z" fill="#FFFDF5" stroke="#9AA5AE" stroke-width="2.5"/><path d="M50 56L72 22H82L72 56ZM54 72L70 100H80L74 72Z" fill="#C62828"/><path d="M16 56L8 36H18L30 56Z" fill="#27864B"/><g fill="#8FD3F4"><circle cx="40" cy="63" r="3.4"/><circle cx="52" cy="63" r="3.4"/><circle cx="64" cy="63" r="3.4"/><circle cx="76" cy="63" r="3.4"/></g><path d="M98 58C106 58 110 62 110 64H98Z" fill="#23334A"/>',
+  envelope: '<rect x="10" y="28" width="100" height="68" rx="6" fill="#FFFDF5" stroke="#C99A2E" stroke-width="3"/><path d="M12 32L60 70L108 32" fill="#F7E8C8" stroke="#C99A2E" stroke-width="3" stroke-linejoin="round"/><path d="M12 94L46 62M108 94L74 62" stroke="#E0D3B8" stroke-width="2.5"/><circle cx="60" cy="68" r="9" fill="#C62828"/><path d="M56 68l3 3 6 -6" stroke="#fff" stroke-width="2.4" fill="none"/><rect x="82" y="38" width="18" height="14" fill="#27864B" stroke="#1B5E35" stroke-width="1.5"/>',
+  grapes: '<path d="M60 22V8" stroke="#6E4527" stroke-width="4" stroke-linecap="round"/><path d="M60 16C70 4 88 6 94 16C82 22 70 20 60 16Z" fill="#3F9A55"/><g fill="#7A4FA0"><circle cx="44" cy="34" r="11"/><circle cx="66" cy="32" r="11"/><circle cx="86" cy="38" r="10"/><circle cx="34" cy="52" r="11"/><circle cx="56" cy="52" r="11"/><circle cx="78" cy="54" r="11"/><circle cx="44" cy="72" r="11"/><circle cx="66" cy="72" r="11"/><circle cx="56" cy="92" r="11"/></g><g fill="#fff" opacity=".45"><circle cx="40" cy="30" r="3"/><circle cx="62" cy="28" r="3"/><circle cx="30" cy="48" r="3"/><circle cx="52" cy="48" r="3"/><circle cx="74" cy="50" r="3"/><circle cx="40" cy="68" r="3"/><circle cx="62" cy="68" r="3"/><circle cx="52" cy="88" r="3"/></g>',
+  gazelle: '<rect width="120" height="120" fill="#DDF1F7"/><path d="M0 92C30 84 80 88 120 82V120H0Z" fill="#E8CFA0"/><path d="M42 98L38 114M50 98L50 114M78 98L82 114M86 96L90 112" stroke="#B57A45" stroke-width="4.5" stroke-linecap="round"/><ellipse cx="64" cy="86" rx="28" ry="14" fill="#C98A50"/><path d="M40 90C42 96 86 96 90 88" fill="#FFF4E6"/><path d="M86 80C90 66 92 56 88 46L80 46C80 58 78 70 74 80Z" fill="#C98A50"/><g transform="translate(88 42)"><ellipse cx="0" cy="0" rx="12" ry="8" fill="#C98A50" transform="rotate(25)"/><ellipse cx="8" cy="6" rx="5" ry="4" fill="#B57A45"/><circle cx="2" cy="-2" r="2.2" fill="#2B1D14"/><path d="M-6 -6C-10 -18 -6 -28 2 -34M-2 -7C-2 -18 4 -26 10 -30" stroke="#5E3B20" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="-8" cy="-2" rx="6" ry="3" fill="#B57A45" transform="rotate(-30 -8 -2)"/></g><path d="M36 82l-6 -4" stroke="#5E3B20" stroke-width="4" stroke-linecap="round"/>',
+  elephant: '<ellipse cx="60" cy="110" rx="44" ry="5" fill="rgba(70,45,20,.15)"/><path d="M36 84V108M50 86V108M74 86V108M88 84V108" stroke="#8A97A2" stroke-width="12" stroke-linecap="round"/><ellipse cx="62" cy="72" rx="38" ry="24" fill="#9AA5AE"/><circle cx="34" cy="52" r="22" fill="#9AA5AE"/><ellipse cx="48" cy="50" rx="16" ry="20" fill="#B8C2CA" stroke="#8A97A2" stroke-width="2"/><path d="M18 58C10 70 10 86 18 96C22 100 28 98 26 92C22 84 22 74 26 66" fill="none" stroke="#9AA5AE" stroke-width="10" stroke-linecap="round"/><circle cx="28" cy="46" r="3" fill="#2B1D14"/><path d="M24 62L14 64" stroke="#FFFDF5" stroke-width="4" stroke-linecap="round"/><path d="M98 70C106 72 108 80 104 86" stroke="#8A97A2" stroke-width="3" fill="none"/>',
+  moon: '<rect width="120" height="120" rx="16" fill="#27456B"/><circle cx="60" cy="54" r="32" fill="#FFF4C4"/><g fill="#EAD9A0"><circle cx="48" cy="44" r="6"/><circle cx="70" cy="62" r="8"/><circle cx="66" cy="38" r="4"/></g><g fill="#fff"><circle cx="16" cy="18" r="2"/><circle cx="104" cy="22" r="2.4"/><circle cx="20" cy="74" r="1.8"/><circle cx="102" cy="72" r="2"/></g><path d="M0 100L20 90L36 98L60 86L84 98L104 90L120 98V120H0Z" fill="#1B3354"/><g transform="translate(90 104) scale(.18)"><path d="M0 0C-6 -60 4 -120 10 -170" stroke="#0F2238" stroke-width="16" fill="none"/><g transform="translate(10 -170)" fill="#0F2238"><path d="M0 0C-40 -40 -100 -30 -130 10C-90 -10 -40 -10 0 0Z"/><path d="M0 0C40 -40 100 -30 130 10C90 -10 40 -10 0 0Z"/><path d="M0 0C-20 -50 -70 -70 -100 -60C-60 -45 -30 -30 0 0Z"/><path d="M0 0C20 -50 70 -70 100 -60C60 -45 30 -30 0 0Z"/></g></g>',
+  ball: '<ellipse cx="60" cy="110" rx="34" ry="5" fill="rgba(70,45,20,.15)"/><circle cx="60" cy="60" r="44" fill="#fff" stroke="#2B2B2B" stroke-width="3"/><path d="M60 40l14 10 -5 16H51l-5 -16z" fill="#2B2B2B"/><path d="M60 16v24M74 50l22 -8M69 66l14 18M51 66l-14 18M46 50l-22 -8" stroke="#2B2B2B" stroke-width="2.5"/><path d="M48 18l12 -2 12 2 -4 8H52zM96 42l4 12 -2 12 -8 -4 2 -14zM24 42l-4 12 2 12 8 -4 -2 -14zM34 92l10 8 12 2 -2 -8 -12 -6zM86 92l-10 8 -12 2 2 -8 12 -6z" fill="#2B2B2B"/>',
+  lemon: '<path d="M96 20C104 16 112 20 112 26" stroke="#27864B" stroke-width="3" fill="none"/><path d="M92 22C100 30 106 26 108 20C102 16 96 16 92 22Z" fill="#4FAA5E"/><path d="M18 68C18 44 40 26 66 28C88 30 104 46 104 66C104 88 84 104 60 104C36 104 18 90 18 68Z" fill="#FFE27A" stroke="#E0B800" stroke-width="3"/><path d="M18 68L8 66L12 74Z" fill="#FFE27A" stroke="#E0B800" stroke-width="2"/><ellipse cx="44" cy="52" rx="10" ry="6" fill="#fff" opacity=".55" transform="rotate(-25 44 52)"/><g fill="#E0B800" opacity=".5"><circle cx="70" cy="60" r="1.6"/><circle cx="58" cy="78" r="1.6"/><circle cx="82" cy="80" r="1.6"/><circle cx="76" cy="44" r="1.6"/></g>',
+  banana: '<path d="M18 30C14 70 40 104 86 102C96 102 104 98 106 94C76 96 46 80 34 34Z" fill="#FFD45C" stroke="#E0A800" stroke-width="2.5" stroke-linejoin="round"/><path d="M30 34C34 72 56 94 92 98" stroke="#E0A800" stroke-width="2" fill="none" opacity=".7"/><path d="M38 22C40 62 64 88 104 84C110 84 114 80 116 76C84 80 60 62 50 22Z" fill="#FFE27A" stroke="#E0A800" stroke-width="2.5" stroke-linejoin="round"/><path d="M14 28L22 14L30 18L32 34Z" fill="#7A5A1E"/><path d="M36 20L44 8L52 12L50 24Z" fill="#7A5A1E"/><path d="M104 94l6 2M114 76l5 -1" stroke="#5E3B20" stroke-width="4" stroke-linecap="round"/>',
+  tiger: '<circle cx="26" cy="30" r="12" fill="#F7931E"/><circle cx="94" cy="30" r="12" fill="#F7931E"/><circle cx="26" cy="30" r="6" fill="#FFF4E6"/><circle cx="94" cy="30" r="6" fill="#FFF4E6"/><circle cx="60" cy="62" r="44" fill="#F7931E"/><g fill="#2B2118"><path d="M52 20l4 14 4 -14z"/><path d="M64 20l-4 14z"/><path d="M60 18l-6 16h12z"/><path d="M18 56l16 4 -16 6z"/><path d="M102 56l-16 4 16 6z"/><path d="M20 76l14 0 -12 8z"/><path d="M100 76l-14 0 12 8z"/></g><ellipse cx="60" cy="84" rx="24" ry="18" fill="#FFF4E6"/><circle cx="44" cy="56" r="5" fill="#2B1D14"/><circle cx="76" cy="56" r="5" fill="#2B1D14"/><circle cx="45.5" cy="54.5" r="1.6" fill="#fff"/><circle cx="77.5" cy="54.5" r="1.6" fill="#fff"/><path d="M53 74h14l-7 7z" fill="#C85A70"/><path d="M60 81q-6 7 -12 3M60 81q6 7 12 3" stroke="#2B2118" stroke-width="2.4" fill="none" stroke-linecap="round"/>',
+  crescent: '<rect width="120" height="120" fill="#1B2A42"/><path d="M76 16C52 16 34 36 34 60C34 84 52 104 76 104C60 96 50 80 50 60C50 40 60 24 76 16Z" fill="#FFD45C"/><g fill="#FFF3C4"><path d="M92 40l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z"/><circle cx="20" cy="22" r="1.8"/><circle cx="100" cy="90" r="1.8"/><circle cx="24" cy="98" r="1.4"/></g>',
+  roses: '<path d="M60 112V64M44 112L52 70M76 112L68 70" stroke="#3F9A55" stroke-width="4" stroke-linecap="round"/><path d="M60 88c-10 -2 -16 -10 -14 -16c8 2 14 8 14 16zM60 92c10 -2 16 -10 14 -16c-8 2 -14 8 -14 16z" fill="#4FAA5E"/><g><circle cx="60" cy="44" r="18" fill="#D7263D"/><path d="M60 32c-8 0 -12 6 -10 12c2 6 10 8 14 4c4 -4 2 -10 -4 -10c-4 0 -6 4 -4 6" stroke="#940A21" stroke-width="2.5" fill="none" stroke-linecap="round"/></g><g><circle cx="36" cy="58" r="14" fill="#F28CA0"/><path d="M36 50c-6 0 -9 5 -7 9c2 4 8 5 10 2c2 -3 0 -6 -3 -6" stroke="#C85A70" stroke-width="2" fill="none" stroke-linecap="round"/></g><g><circle cx="84" cy="58" r="14" fill="#F2C94C"/><path d="M84 50c-6 0 -9 5 -7 9c2 4 8 5 10 2c2 -3 0 -6 -3 -6" stroke="#C9A23A" stroke-width="2" fill="none" stroke-linecap="round"/></g><path d="M40 112H80L76 100H44Z" fill="#C8102E"/>',
+  dove: '<path d="M34 58C26 44 30 26 44 20C42 34 50 44 62 48Z" fill="#E8EEF2"/><path d="M22 64C22 50 34 44 48 46L78 50C92 52 106 62 110 74C96 74 88 72 80 70C72 84 52 90 38 84C28 80 22 72 22 64Z" fill="#fff" stroke="#C9D3DA" stroke-width="2.5"/><path d="M50 56C60 48 80 46 92 54C82 62 62 66 50 56Z" fill="#E3EAEF"/><circle cx="26" cy="46" r="13" fill="#fff" stroke="#C9D3DA" stroke-width="2.5"/><circle cx="22" cy="44" r="3" fill="#2B1D14"/><path d="M14 48l-10 2 10 4z" fill="#F7931E"/><path d="M8 52q10 6 22 2" stroke="#3F9A55" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M14 56c-2 4 0 8 4 8c0 -4 -2 -6 -4 -8z M24 56c-2 4 0 8 4 8c0 -4 -2 -6 -4 -8z" fill="#4FAA5E"/><circle cx="32" cy="52" r="3" fill="#F7B7C3" opacity=".7"/>'
+};
+
+var ICON = {
+  gear: '<svg viewBox="0 0 24 24" fill="none" stroke="#23334A" stroke-linecap="round"><circle cx="12" cy="12" r="7.6" stroke-width="3.4" stroke-dasharray="2.9 3.07"/><circle cx="12" cy="12" r="5.4" stroke-width="2.2"/><circle cx="12" cy="12" r="1.8" fill="#23334A" stroke="none"/></svg>',
+  full: '<svg viewBox="0 0 24 24" fill="none" stroke="#23334A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>',
+  close: '<svg viewBox="0 0 24 24" fill="none" stroke="#23334A" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  play: '<svg viewBox="0 0 24 24"><path d="M16.5 4.5v15L5 12z" fill="#fff"/></svg>',
+  info: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#23334A" stroke-width="2.4"/><circle cx="12" cy="7.4" r="1.6" fill="#23334A"/><path d="M12 11v6.5" stroke="#23334A" stroke-width="2.6" stroke-linecap="round"/></svg>',
+  soundOn: '<svg viewBox="0 0 24 24"><path d="M9.5 17.5a3 3 0 1 1-2-2.83V5.2l11-2.2v11.5a3 3 0 1 1-2-2.83V6.9L9.5 8.2z" fill="#27864B"/></svg>',
+  soundOff: '<svg viewBox="0 0 24 24"><path d="M9.5 17.5a3 3 0 1 1-2-2.83V5.2l11-2.2v11.5a3 3 0 1 1-2-2.83V6.9L9.5 8.2z" fill="#B9AC97"/><path d="M3.5 3.5l17 17" stroke="#C62828" stroke-width="2.6" stroke-linecap="round"/></svg>',
+  speaker: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5h4l5-4v13l-5-4h-4z" fill="#fff"/><path d="M16 9a4.5 4.5 0 0 1 0 6M18.6 6.4a8 8 0 0 1 0 11.2"/></svg>',
+  // Neutral education emblem (NOT a school logo): open book inside an Omani khatam star
+  emblem: '<svg viewBox="0 0 60 60" aria-hidden="true"><rect x="10" y="10" width="40" height="40" rx="6" fill="#F4C95D"/><rect x="10" y="10" width="40" height="40" rx="6" fill="#F4C95D" transform="rotate(45 30 30)"/><circle cx="30" cy="30" r="17" fill="#FFFDF5" stroke="#27864B" stroke-width="2.5"/><path d="M18 26v12c4-2 8-2 12 1c4-3 8-3 12-1V26c-4-2-8-2-12 1c-4-3-8-3-12-1z" fill="#C62828"/><path d="M30 27v12" stroke="#FFFDF5" stroke-width="1.6"/><path d="M30 14l1.6 3.3 3.6.5-2.6 2.5.6 3.6-3.2-1.7-3.2 1.7.6-3.6-2.6-2.5 3.6-.5z" fill="#27864B"/></svg>'
+};
+function illusSVG(key) { return '<svg viewBox="0 0 120 120" aria-hidden="true">' + (ILLUS[key] || '') + '</svg>'; }
+
+/* =====================================================================
+   6. HELPERS — tap feedback without interfering with link navigation
+   ===================================================================== */
+function $(id) { return document.getElementById(id); }
+function each(l, f) { Array.prototype.forEach.call(l, f); }
+function pressFX(el) {
+  var on = function () { el.classList.add('pressing'); };
+  var off = function () { el.classList.remove('pressing'); };
+  if (window.PointerEvent) { el.addEventListener('pointerdown', on); el.addEventListener('pointerup', off); el.addEventListener('pointercancel', off); el.addEventListener('pointerleave', off); }
+  else { el.addEventListener('touchstart', on, { passive: true }); el.addEventListener('touchend', off); el.addEventListener('touchcancel', off); el.addEventListener('mousedown', on); el.addEventListener('mouseup', off); }
+}
+/* For buttons (not links): one action per tap, no double firing */
+function onTap(el, fn) {
+  var last = 0;
+  pressFX(el);
+  el.addEventListener('click', function (e) { var n = Date.now(); if (n - last < 350) return; last = n; fn(e); });
+}
+
+/* =====================================================================
+   7. RENDER
+   ===================================================================== */
+var active = alphabetPages.filter(function (p) { return p.available && p.url; });
+var soon = alphabetPages.filter(function (p) { return !(p.available && p.url); });
+
+function renderCards() {
+  var grid = $('grid'), html = '';
+  active.forEach(function (p, i) {
+    html += '<div class="card-wrap t' + (i % 6) + '">' +
+      '<a class="card" data-i="' + i + '" href="' + p.url.replace(/"/g, '&quot;') + '" aria-label="حرف ' + p.name + ' — ' + p.word + '">' +
+        '<div class="c-letter-col"><div class="c-letter">' + p.letter + '</div><div class="c-name">' + p.name + '</div></div>' +
+        '<div class="c-illus-col"><div class="c-illus">' + illusSVG(p.illustration) + '</div><div class="c-word">' + p.word + '</div></div>' +
+        '<div class="c-side"><span class="c-play" aria-hidden="true">' + ICON.play + '</span></div>' +
+      '</a>' +
+      '<button class="info-btn" data-i="' + i + '" aria-label="معاينة حرف ' + p.name + '">' + ICON.info + '</button>' +
+    '</div>';
+  });
+  grid.innerHTML = html;
+  if (window.TajheezRoster) setTimeout(function () { TajheezRoster.refresh(); }, 0);
+  each(grid.querySelectorAll('a.card'), function (a) { pressFX(a); a.addEventListener('click', onCardClick); });
+  each(grid.querySelectorAll('.info-btn'), function (b) { onTap(b, function () { Sound.play('click'); openPreview(+b.getAttribute('data-i')); }); });
+  applyTargets();
+}
+function renderSoon() {
+  $('soonRow').innerHTML = soon.map(function (p) {
+    return '<div class="soon-tile" aria-disabled="true" title="' + p.name + '"><b>' + p.letter + '</b><i>قَرِيبًا</i></div>';
+  }).join('');
+}
+function applyTargets() {
+  var t = linkTarget();
+  each(document.querySelectorAll('a.card, #pvPlay, #offRetry'), function (a) {
+    a.setAttribute('target', t);
+    if (t === '_blank') a.setAttribute('rel', 'noopener noreferrer'); else a.removeAttribute('rel');
+  });
+}
+
+/* Card tap: feedback runs alongside the browser's own link navigation
+   (no preventDefault, no delay) — except when we know we are offline. */
+function onCardClick(e) {
+  var a = e.currentTarget, i = +a.getAttribute('data-i');
+  // letter pages belong to this site and are cached for offline use (sw.js)
+  Sound.play('select');
+  celebrate(a);
+}
+function celebrate(card) {
+  if (settings.animations) {
+    card.classList.remove('tapped'); void card.offsetWidth; card.classList.add('tapped');
+    var r = card.getBoundingClientRect();
+    for (var k = 0; k < 6; k++) {
+      var s = document.createElement('div');
+      s.className = 'sparkle'; s.innerHTML = starSVG();
+      s.style.left = (r.left + r.width / 2 + window.pageXOffset) + 'px';
+      s.style.top = (r.top + r.height / 2 + window.pageYOffset) + 'px';
+      var ang = k * Math.PI / 3, dist = 90 + Math.random() * 40;
+      s.style.setProperty('--dx', Math.round(Math.cos(ang) * dist) + 'px');
+      s.style.setProperty('--dy', Math.round(Math.sin(ang) * dist) + 'px');
+      document.body.appendChild(s);
+      (function (el) { setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 900); })(s);
+    }
+  }
+  each(document.querySelectorAll('.mascot'), function (m) { m.classList.remove('cheer'); void m.offsetWidth; m.classList.add('cheer'); });
+  setTimeout(function () { each(document.querySelectorAll('.mascot'), function (m) { m.classList.remove('cheer'); }); }, 1600);
+}
+
+/* ---------- Modals ---------- */
+var openModal = null;
+function showModal(id) { var m = $(id); m.classList.add('open'); openModal = m; }
+function closeModal() { if (openModal) openModal.classList.remove('open'); openModal = null; try { speechSynthesis.cancel(); } catch (e) {} }
+function openPreview(i) {
+  var p = active[i];
+  $('previewCard').className = 'modal-card t' + (i % 6);
+  $('pvTitle').textContent = 'حَرْفُ ' + p.name;
+  $('pvBody').innerHTML = '<div class="c-letter">' + p.letter + '</div>' +
+    '<div class="p-text"><div class="p-name">' + p.name + '</div><div class="p-word">' + p.word + '</div></div>' +
+    '<div class="c-illus">' + illusSVG(p.illustration) + '</div>';
+  var play = $('pvPlay'); play.setAttribute('href', p.url); play.setAttribute('data-i', i);
+  $('pvSpeak').classList.toggle('hidden', !Speech.voice);
+  $('pvSpeak').setAttribute('data-i', i);
+  applyTargets();
+  showModal('preview');
+}
+function showOffline(url) { $('offRetry').setAttribute('href', url); applyTargets(); showModal('offline'); }
+
+/* =====================================================================
+   STUDENT RECORD — «مَنْ أَنْتَ؟»  (Google Sheet via Apps Script web app)
+   • The child (or teacher) types the student's e-mail → the sheet returns
+     the name + what this student already finished.
+   • Unknown e-mail / no connection → «اكتب اسمك» → plays as a guest.
+   • Each finished stage is saved to the sheet (students) or the log (guests).
+   • Works with no server too: if ROSTER_API_URL is empty the whole feature
+     is switched off and the page behaves exactly as before.
+   ===================================================================== */
+var ROSTER_API_URL = (window.TAJHEEZ_CONFIG && TAJHEEZ_CONFIG.apiUrl) || 'PASTE_WEB_APP_URL_HERE';      // ← Apps Script «Web app URL» (…/exec)
+var ROSTER_DOMAINS = (window.TAJHEEZ_CONFIG && TAJHEEZ_CONFIG.emailDomains) || ['@gmail.com'];                // quick buttons under the e-mail box
+var Roster = (function () {
+  var PAGE = (typeof LESSON !== 'undefined') ? 'game' : 'home';
+  var STAGE_ORDER = ['beginning', 'middle', 'end', 'mixed'];
+  var STAGE_AR = { beginning: 'أَوَّلُ الْكَلِمَةِ', middle: 'وَسَطُ الْكَلِمَةِ', end: 'آخِرُ الْكَلِمَةِ', mixed: 'التَّحَدِّي الشَّامِلُ' };
+  var LS = 'tajheezRoster.v1';
+  var student = null;            // { email, name, guest, progress:{letter:{mode:{stars,total}}}, count, finalLetter, current }
+  var cbN = 0, el = {}, busy = false;
+  var arN = (typeof arNum === 'function') ? arNum : function (n) { return String(n).replace(/\d/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'.charAt(+d); }); };
+
+  function enabled() { return /^https:\/\/script\.google(usercontent)?\.com\//.test(ROSTER_API_URL) && settings.roster !== false; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]; }); }
+  function mem() { try { return JSON.parse(localStorage.getItem(LS) || '{}') || {}; } catch (e) { return {}; } }
+  function memSave(m) { try { localStorage.setItem(LS, JSON.stringify(m)); } catch (e) {} }
+  function remember() { return settings.rosterRemember !== false; }
+
+  /* ---------- JSONP call (works inside Google Sites embeds, no CORS) ---------- */
+  function api(params, done) {
+    var name = '__tjRoster' + (++cbN) + '_' + Date.now(), s = document.createElement('script'), fin = false;
+    var q = Object.keys(params).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); }).join('&');
+    var end = function (res) { if (fin) return; fin = true; clearTimeout(t); try { delete window[name]; } catch (e) { window[name] = undefined; } if (s.parentNode) s.parentNode.removeChild(s); done(res); };
+    var t = setTimeout(function () { end({ ok: false, error: 'timeout' }); }, 15000);
+    window[name] = function (res) { end(res || { ok: false }); };
+    s.onerror = function () { end({ ok: false, error: 'network' }); };
+    s.src = ROSTER_API_URL + (ROSTER_API_URL.indexOf('?') < 0 ? '?' : '&') + q + '&callback=' + name + '&_=' + Date.now();
+    document.head.appendChild(s);
+  }
+  /* finished stages that could not be sent are kept and retried */
+  function outboxPush(item) { var m = mem(); (m.outbox = m.outbox || []).push(item); if (m.outbox.length > 60) m.outbox = m.outbox.slice(-60); memSave(m); }
+  function flush() {
+    var m = mem(); if (!m.outbox || !m.outbox.length || !enabled() || navigator.onLine === false) return;
+    var item = m.outbox.shift(); memSave(m);
+    api(item, function (r) { if (r && r.ok) flush(); else outboxPush(item); });
+  }
+
+  /* ---------- UI ---------- */
+  var KID = function (fn) { return fn().replace('<svg ', '<svg aria-hidden="true" '); };
+  function build() {
+    if (el.modal) return;
+    var m = document.createElement('div');
+    m.id = 'rosterModal'; m.className = 'ro-modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-label', 'من أنت؟');
+    m.innerHTML =
+      '<div class="ro-card">' +
+        '<div class="ro-kids"><span class="ro-kid">' + KID(boySVG) + '</span><span class="ro-kid">' + KID(girlSVG) + '</span></div>' +
+        '<div class="ro-main">' +
+          /* step 1 — e-mail */
+          '<section class="ro-step" data-step="email">' +
+            '<h2>مَنْ أَنْتَ؟</h2>' +
+            '<p class="ro-sub">اكْتُبْ بَرِيدَكَ الْإِلِكْتُرُونِيَّ لِنَعْرِفَكَ وَنَحْفَظَ مَا تُنْجِزُهُ.</p>' +
+            '<div class="ro-recent" id="roRecent"></div>' +
+            '<input id="roEmail" class="ro-input" type="email" inputmode="email" dir="ltr" lang="en" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="name@gmail.com" maxlength="80">' +
+            '<div class="ro-domains" id="roDomains"></div>' +
+            '<div class="ro-actions"><button class="btn ro-btn" id="roGo"><span>دُخُولٌ</span></button>' +
+            '<button class="btn btn-light ro-btn" id="roGuest"><span>الدُّخُولُ كَضَيْفٍ</span></button></div>' +
+          '</section>' +
+          /* step 2 — guest name */
+          '<section class="ro-step" data-step="name">' +
+            '<h2>مَا اسْمُكَ؟</h2>' +
+            '<p class="ro-sub" id="roWhy">سَتَلْعَبُ كَضَيْفٍ.</p>' +
+            '<input id="roName" class="ro-input" type="text" dir="rtl" autocomplete="off" spellcheck="false" placeholder="اكْتُبِ اسْمَكَ هُنَا" maxlength="40">' +
+            '<div class="ro-actions"><button class="btn ro-btn" id="roStartGuest"><span>هَيَّا نَلْعَبُ</span></button>' +
+            '<button class="btn btn-light ro-btn" id="roBack"><span>رُجُوعٌ</span></button></div>' +
+          '</section>' +
+          /* step 3 — welcome back */
+          '<section class="ro-step" data-step="hello">' +
+            '<h2 id="roHello"></h2>' +
+            '<div class="ro-summary" id="roSummary"></div>' +
+            '<div class="ro-actions"><button class="btn ro-btn" id="roStart"><span>هَيَّا نَبْدَأُ</span></button>' +
+            '<button class="btn btn-light ro-btn" id="roNotMe"><span>لَسْتُ أَنَا</span></button></div>' +
+          '</section>' +
+          '<p class="ro-status" id="roStatus" role="status"></p>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(m);
+    el.modal = m;
+    ['roEmail', 'roName', 'roRecent', 'roDomains', 'roStatus', 'roHello', 'roSummary', 'roWhy'].forEach(function (id) { el[id] = $(id); });
+    el.roDomains.innerHTML = ROSTER_DOMAINS.map(function (d) { return '<button class="ro-chip" data-d="' + esc(d) + '" dir="ltr">' + esc(d) + '</button>'; }).join('');
+    each(el.roDomains.querySelectorAll('.ro-chip'), function (b) {
+      onTap(b, function () { var v = el.roEmail.value.replace(/@.*$/, ''); el.roEmail.value = v + b.getAttribute('data-d'); Sound.play('tap'); el.roEmail.focus(); });
+    });
+    var enter = function (inp, fn) { inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); fn(); } }); };
+    enter(el.roEmail, signInEmail); enter(el.roName, signInGuest);
+    onTap($('roGo'), function () { Sound.play('tap'); signInEmail(); });
+    onTap($('roGuest'), function () { Sound.play('tap'); el.roWhy.textContent = 'سَتَلْعَبُ كَضَيْفٍ، وَلَنْ يُحْفَظَ تَقَدُّمُكَ بِاسْمِكَ.'; step('name'); });
+    onTap($('roStartGuest'), function () { Sound.play('tap'); signInGuest(); });
+    onTap($('roBack'), function () { Sound.play('tap'); step('email'); });
+    onTap($('roStart'), function () { Sound.play('tap'); close(); });
+    onTap($('roNotMe'), function () { Sound.play('tap'); signOut(true); });
+  }
+  function step(s) {
+    each(el.modal.querySelectorAll('.ro-step'), function (x) { x.classList.toggle('on', x.getAttribute('data-step') === s); });
+    status('');
+    var f = s === 'email' ? el.roEmail : s === 'name' ? el.roName : null;
+    if (f) setTimeout(function () { try { f.focus(); } catch (e) {} }, 60);
+  }
+  function status(t, bad) { if (!el.roStatus) return; el.roStatus.textContent = t || ''; el.roStatus.classList.toggle('bad', !!bad); }
+  function renderRecent() {
+    var list = remember() ? (mem().recent || []) : [];
+    el.roRecent.innerHTML = list.length ? '<div class="ro-recent-t">طُلَّابٌ دَخَلُوا مِنْ هَذَا الْجِهَازِ:</div>' + list.map(function (r, i) {
+      return '<button class="ro-person" data-i="' + i + '"><b>' + esc(r.name) + '</b><span dir="ltr">' + esc(r.email) + '</span></button>';
+    }).join('') : '';
+    each(el.roRecent.querySelectorAll('.ro-person'), function (b) {
+      onTap(b, function () { Sound.play('tap'); el.roEmail.value = list[+b.getAttribute('data-i')].email; signInEmail(); });
+    });
+  }
+  function open() {
+    if (!enabled()) return;
+    build(); renderRecent(); el.roEmail.value = ''; el.roName.value = '';
+    step('email'); el.modal.classList.add('open');
+  }
+  function close() { if (el.modal) el.modal.classList.remove('open'); renderChip(); }
+
+  /* ---------- sign in / out ---------- */
+  function signInEmail() {
+    if (busy) return;
+    var email = el.roEmail.value
+      .replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069\uFEFF\u00A0]/g, '')   // invisible direction marks from RTL keyboards
+      .replace(/[\u0660-\u0669]/g, function (d) { return String(d.charCodeAt(0) - 0x660); })   // ٠-٩ → 0-9
+      .replace(/[\u06F0-\u06F9]/g, function (d) { return String(d.charCodeAt(0) - 0x6F0); })
+      .replace(/[＠]/g, '@').replace(/[٫،]/g, '.').trim().toLowerCase().replace(/\s+/g, '');
+    el.roEmail.value = email;
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { status('اكْتُبِ الْبَرِيدَ كَامِلًا، مِثْلَ: name@gmail.com', true); Sound.play('try'); return; }
+    if (navigator.onLine === false) { offerGuest('لَا يُوجَدُ اتِّصَالٌ بِالْإِنْتَرْنِتِ الْآنَ — يُمْكِنُكَ اللَّعِبُ كَضَيْفٍ.', email); return; }
+    busy = true; status('جَارٍ الْبَحْثُ…'); $('roGo').classList.add('is-disabled');
+    api({ action: 'lookup', email: email }, function (r) {
+      busy = false; $('roGo').classList.remove('is-disabled');
+      if (!r || !r.ok) { offerGuest('تَعَذَّرَ الِاتِّصَالُ بِسِجِلِّ الطُّلَّابِ — يُمْكِنُكَ اللَّعِبُ كَضَيْفٍ.', email); return; }
+      if (!r.found) { offerGuest('لَمْ نَجِدْ هَذَا الْبَرِيدَ فِي السِّجِلِّ ( ' + email + ' ) — اكْتُبِ اسْمَكَ لِتَلْعَبَ كَضَيْفٍ.', email); return; }
+      setStudent({ email: r.email, name: r.name || email, guest: false, progress: r.progress || {}, count: r.count || 0, total: r.total || 28, finalLetter: r.finalLetter || '', current: r.current || {} });
+      Sound.play('correct'); hello(); flush();
+    });
+  }
+  function offerGuest(msg, email) { el.roWhy.textContent = msg; el.roWhy.setAttribute('data-email', email || ''); step('name'); Sound.play('try'); }
+  function signInGuest() {
+    var name = el.roName.value.replace(/\s+/g, ' ').trim();
+    if (!name) { status('اكْتُبِ اسْمَكَ أَوَّلًا.', true); Sound.play('try'); return; }
+    setStudent({ email: el.roWhy.getAttribute('data-email') || '', name: name, guest: true, progress: {}, count: 0, total: 28 });
+    el.roWhy.removeAttribute('data-email');
+    close();
+  }
+  function setStudent(s) {
+    student = s;
+    if (!s.guest && remember()) {
+      var m = mem(); m.recent = (m.recent || []).filter(function (r) { return r.email !== s.email; });
+      m.recent.unshift({ email: s.email, name: s.name }); m.recent = m.recent.slice(0, 8); memSave(m);
+    }
+    var mc = mem(); mc.current = { email: s.email || '', name: s.name, guest: !!s.guest, t: Date.now() }; memSave(mc);   // same student on every page of the site
+    if (PAGE === 'game' && window.TajheezCert && TajheezCert.setProgress) {
+      TajheezCert.setProgress(s.guest ? {} : ((s.progress || {})[LESSON.target] || {}));
+    }
+    applyProgress(); renderChip();
+  }
+  function signOut(reopen) {
+    student = null;
+    var mc = mem(); delete mc.current; memSave(mc);
+    if (PAGE === 'game' && window.TajheezCert && TajheezCert.setProgress) TajheezCert.setProgress({});
+    applyProgress(); renderChip();
+    if (reopen) { if (el.modal && el.modal.classList.contains('open')) { renderRecent(); el.roEmail.value = ''; step('email'); } else open(); }
+  }
+  function hello() {
+    el.roHello.textContent = 'مَرْحَبًا يَا ' + student.name + '!';
+    var h = '';
+    if (PAGE === 'game') {
+      var p = (student.progress || {})[LESSON.target] || {}, n = STAGE_ORDER.filter(function (m) { return p[m]; }).length;
+      h += '<div class="ro-stages">' + STAGE_ORDER.map(function (m) { return '<span class="ro-st' + (p[m] ? ' on' : '') + '">' + (p[m] ? '✓ ' : '') + STAGE_AR[m] + '</span>'; }).join('') + '</div>';
+      h += '<p>' + (n === 4 ? 'أَنْهَيْتَ مَرَاحِلَ هَذَا الْحَرْفِ كُلَّهَا — يُمْكِنُكَ اللَّعِبُ مَرَّةً أُخْرَى!' : n ? 'أَنْهَيْتَ ' + arN(n) + ' مِنْ ٤ مَرَاحِلَ فِي هَذَا الْحَرْفِ. هَيَّا نُكْمِلُ!' : 'هَيَّا نَبْدَأُ مَرَاحِلَ هَذَا الْحَرْفِ!') + '</p>';
+    } else {
+      h += '<p>أَكْمَلْتَ <b>' + arN(student.count || 0) + '</b> مِنْ <b>' + arN(student.total || 28) + '</b> حَرْفًا' + (student.finalLetter ? ' — آخِرُ حَرْفٍ مُكْتَمِلٍ: <b class="ro-big">' + esc(student.finalLetter) + '</b>' : '') + '.</p>';
+      var nx = nextLetter();
+      if (nx) h += '<p>اقْتِرَاحُنَا الْآنَ: حَرْفُ <b class="ro-big">' + esc(nx) + '</b></p>';
+    }
+    el.roSummary.innerHTML = h;
+    step('hello');
+  }
+  function nextLetter() {
+    if (typeof alphabetPages === 'undefined' || !student) return '';
+    var p = student.progress || {}, cur = student.current && student.current.letter;
+    var done = function (L) { var r = p[L] || {}; return STAGE_ORDER.every(function (m) { return r[m]; }); };
+    if (cur && !done(cur)) return cur;
+    for (var i = 0; i < alphabetPages.length; i++) if (alphabetPages[i].available && !done(alphabetPages[i].letter)) return alphabetPages[i].letter;
+    return '';
+  }
+
+  /* ---------- chip «👤 name — تغيير» ---------- */
+  function renderChip() {
+    var c = $('roChip');
+    if (!enabled()) { if (c) c.classList.add('hidden'); return; }
+    if (!c) {
+      c = document.createElement('button'); c.id = 'roChip'; c.className = 'ro-chipbar';
+      var host = PAGE === 'game' ? $('screen-welcome') : document.querySelector('.hero');
+      (host || document.body).appendChild(c);
+      onTap(c, function () { Sound.play('tap'); signOut(true); });
+    }
+    c.classList.remove('hidden');
+    c.innerHTML = '<span class="ro-av">' + (student ? esc(student.name.charAt(0)) : '?') + '</span><span class="ro-nm">' +
+      (student ? esc(student.name) + (student.guest ? ' <i>(ضَيْفٌ)</i>' : '') : 'مَنْ أَنْتَ؟') + '</span><span class="ro-sw">' + (student ? 'تَغْيِيرٌ' : 'دُخُولٌ') + '</span>';
+    c.setAttribute('aria-label', student ? 'الطالب: ' + student.name + ' — تغيير' : 'دخول الطالب');
+  }
+
+  /* ---------- show progress on the page ---------- */
+  function applyProgress() {
+    if (PAGE === 'game') {
+      if (typeof Modes !== 'undefined' && $('modes')) Modes.render();
+    } else if (typeof decorateCards === 'function') decorateCards(student ? student.progress || {} : null, student ? nextLetter() : '');
+  }
+  function doneStages(letter) { var p = student && !student.guest ? (student.progress || {})[letter] || {} : {}; return p; }
+
+  /* ---------- save a finished stage ---------- */
+  function stageDone(mode, stars, total) {
+    if (!enabled() || !student || PAGE !== 'game') return;
+    var item = { action: 'save', email: student.email || '', name: student.name, guest: student.guest ? 1 : 0, letter: LESSON.target, stage: mode, stars: stars, total: total };
+    if (!student.guest && STAGE_ORDER.indexOf(mode) >= 0) {        // update the local copy right away
+      var p = (student.progress = student.progress || {}), L = p[LESSON.target] = p[LESSON.target] || {};
+      if (!L[mode] || stars >= L[mode].stars) L[mode] = { stars: stars, total: total };
+    }
+    if (navigator.onLine === false) { outboxPush(item); return; }
+    api(item, function (r) {
+      if (!r || !r.ok) { outboxPush(item); return; }
+      if (r.progress && student && !student.guest) { student.progress = r.progress; student.count = r.count; student.finalLetter = r.finalLetter; }
+      flush();
+    });
+  }
+
+
+  /* ---------- teacher settings rows ---------- */
+  function settingsHTML(row) {
+    var ok = /^https:\/\/script\.google(usercontent)?\.com\//.test(ROSTER_API_URL);
+    var h = row('roster', 'سجل الطلاب (جدول جوجل)', ok ? 'يسأل الطالب عن بريده، ويحفظ المراحل التي أنهاها في الجدول' : 'غير مفعّل بعد: لم يُضَف رابط تطبيق Apps Script في الملف');
+    h += row('rosterRemember', 'تذكّر الطلاب على هذا الجهاز', 'يعرض أسماء من دخلوا سابقًا لاختيارهم بلمسة واحدة');
+    h += '<div class="set-row set-col"><div class="lbl">حالة الاتصال بالسجل<span class="hint" id="roConn">' + (ok ? 'اضغط «اختبار» للتأكد' : 'أضف الرابط في المتغير ROSTER_API_URL أعلى الملف') + '</span></div>' +
+         '<div class="ro-setbtns"><button class="btn ro-btn" id="roTest"' + (ok ? '' : ' disabled') + '><span>اختبار الاتصال</span></button>' +
+         '<button class="btn btn-light ro-btn" id="roClear"><span>مسح قائمة الطلاب المحفوظة</span></button></div></div>';
+    return h;
+  }
+  function bindSettings() {
+    var t = $('roTest'), c = $('roClear');
+    if (t) onTap(t, function () {
+      var out = $('roConn'); out.textContent = 'جارٍ الاختبار…';
+      api({ action: 'ping' }, function (r) { out.textContent = r && r.ok ? 'متصل ✔ — السجل يعمل' : 'تعذّر الاتصال — تأكد من الرابط ومن نشر التطبيق لـ «Anyone»'; });
+    });
+    if (c) onTap(c, function () { var m = mem(); m.recent = []; memSave(m); c.querySelector('span').textContent = 'تم المسح ✔'; });
+  }
+
+  var CONTINUE_HOURS = (window.TAJHEEZ_CONFIG && TAJHEEZ_CONFIG.stayHours) || 3;
+  function toast(t) {
+    var d = $('roToast'); if (!d) { d = document.createElement('div'); d.id = 'roToast'; d.className = 'ro-toast'; d.setAttribute('role', 'status'); document.body.appendChild(d); }
+    d.textContent = t; d.classList.add('show'); clearTimeout(d._t); d._t = setTimeout(function () { d.classList.remove('show'); }, 3600);
+  }
+  function resume(cur) {
+    setStudent({ email: cur.email, name: cur.name, guest: !!cur.guest, progress: {}, count: 0, total: 28 });
+    toast('مَرْحَبًا يَا ' + cur.name + '! — لِتَغْيِيرِ الطَّالِبِ الْمَسِ الِاسْمَ فِي الْأَعْلَى');
+    if (cur.guest || !cur.email) return;
+    api({ action: 'lookup', email: cur.email }, function (r) {      // refresh what he/she finished
+      if (!student || student.email !== cur.email || !r || !r.ok || !r.found) return;
+      setStudent({ email: r.email, name: r.name || cur.name, guest: false, progress: r.progress || {}, count: r.count || 0, total: r.total || 28, finalLetter: r.finalLetter || '', current: r.current || {} });
+    });
+  }
+  function init() {
+    if (!enabled()) { renderChip(); return; }
+    renderChip(); flush();
+    var cur = mem().current;
+    if (cur && cur.name && Date.now() - (cur.t || 0) < CONTINUE_HOURS * 3600000) resume(cur);   // signed in on another page
+    else setTimeout(open, 500);
+    window.addEventListener('online', flush);
+  }
+  return { init: init, open: open, settingsHTML: settingsHTML, bindSettings: bindSettings, refresh: applyProgress, signOut: signOut, stageDone: stageDone, doneStages: doneStages,
+           studentName: function () { return student && student.name || ''; }, student: function () { return student; },
+           enabled: enabled, _api: api };
+})();
+window.TajheezRoster = Roster;
+
+
+/* Home page: show each student's progress on the letter cards */
+function decorateCards(prog, next) {
+  var arN = function (n) { return String(n).replace(/\d/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'.charAt(+d); }); };
+  each(document.querySelectorAll('#grid .card-wrap'), function (w) {
+    var a = w.querySelector('a.card'), p = active[+a.getAttribute('data-i')];
+    each(w.querySelectorAll('.ro-badge,.ro-next'), function (x) { x.parentNode.removeChild(x); });
+    w.classList.remove('ro-full', 'ro-cur');
+    if (!prog) return;
+    var r = prog[p.letter] || {}, n = ['beginning', 'middle', 'end', 'mixed'].filter(function (m) { return r[m]; }).length;
+    if (n === 4) { w.classList.add('ro-full'); w.insertAdjacentHTML('beforeend', '<span class="ro-badge full" aria-label="مكتمل">✓</span>'); }
+    else if (n) w.insertAdjacentHTML('beforeend', '<span class="ro-badge part" aria-label="' + n + ' من 4">' + arN(n) + '/٤</span>');
+    if (p.letter === next) { w.classList.add('ro-cur'); w.insertAdjacentHTML('beforeend', '<span class="ro-next">تَابِعْ هُنَا</span>'); }
+  });
+}
+
+/* ---------- Settings panel ---------- */
+function sw(key, label, hint) {
+  return '<div class="set-row"><div class="lbl">' + label + (hint ? '<span class="hint">' + hint + '</span>' : '') + '</div>' +
+    '<button class="switch' + (settings[key] ? ' on' : '') + '" role="switch" aria-checked="' + !!settings[key] + '" data-key="' + key + '"><span class="mark yes">نعم</span><span class="mark no">لا</span><span class="knob"></span></button></div>';
+}
+function renderSettings() {
+  var modes = [['auto', 'تلقائي'], ['same', 'نفس الصفحة'], ['new', 'صفحة جديدة']], h = '';
+  h += '<div class="set-row set-col"><div class="lbl">طريقة فتح صفحات الحروف<span class="hint">«تلقائي»: نفس الصفحة عادةً، وصفحة جديدة إذا كانت هذه الصفحة مضمَّنة داخل موقع آخر' + (FRAMED ? ' (وهي مضمَّنة الآن)' : '') + '</span></div><div class="segs">';
+  modes.forEach(function (m) { h += '<button class="seg' + (settings.linkMode === m[0] ? ' on' : '') + '" data-mode="' + m[0] + '">' + m[1] + '</button>'; });
+  h += '</div></div>';
+  h += sw('sound', 'الأصوات');
+  h += sw('animations', 'الحركات والاحتفالات', 'تُوقَف تلقائيًا إذا طلب الجهاز تقليل الحركة');
+  h += sw('showWords', 'إظهار الكلمات تحت الصور');
+  h += sw('showIllus', 'إظهار الصور');
+  h += sw('compact', 'عرض مضغوط', 'عنوان أصغر ومساحة أكبر للحروف');
+  if (soon.length) h += sw('showSoon', 'إظهار الحروف القادمة');
+  h += Roster.settingsHTML(sw);
+  h += '<div class="set-row"><div class="lbl">ملء الشاشة<span class="hint" id="fsHint"></span></div><button class="btn btn-blue" id="setFull"><span>ملء الشاشة</span></button></div>';
+  h += '<div class="set-row"><div class="lbl">إعادة الإعدادات الافتراضية</div><button class="btn btn-red" id="setReset"><span>إعادة الضبط</span></button></div>';
+  h += '<div class="set-row set-col"><div class="info-note">' + (store.persistent() ? 'تُحفَظ الإعدادات على هذا الجهاز.' : 'لا يمكن حفظ الإعدادات على هذا الجهاز — ستعود للوضع الافتراضي عند إعادة فتح الصفحة.') +
+    (Roster.enabled() ? ' يُحفَظ تقدّم الطلاب المسجّلين (بالبريد) في جدول المدرسة على Google Sheets، ولا يُحفَظ شيء عن الضيوف على هذا الجهاز.' : ' لا تُجمَع أي بيانات عن الطلاب.') + ' بعد فتح الموقع مرة واحدة تعمل صفحات الحروف حتى دون إنترنت.</div></div>';
+  $('setBody').innerHTML = h;
+  $('fsHint').textContent = fsSupported() ? '' : 'غير مدعوم في هذا المتصفح';
+  if (!fsSupported()) $('setFull').classList.add('is-disabled');
+  each($('setBody').querySelectorAll('.switch'), function (b) {
+    onTap(b, function () {
+      var k = b.getAttribute('data-key'); settings[k] = !settings[k];
+      b.classList.toggle('on', settings[k]); b.setAttribute('aria-checked', settings[k] ? 'true' : 'false');
+      saveSettings(); applySettings(); Sound.play('click');
+    });
+  });
+  each($('setBody').querySelectorAll('.seg'), function (b) {
+    onTap(b, function () {
+      settings.linkMode = b.getAttribute('data-mode');
+      each($('setBody').querySelectorAll('.seg'), function (x) { x.classList.toggle('on', x === b); });
+      saveSettings(); applyTargets(); Sound.play('click');
+    });
+  });
+  onTap($('setFull'), function () { toggleFullscreen(); });
+  Roster.bindSettings();
+  onTap($('setReset'), function () {
+    Object.keys(DEFAULTS).forEach(function (k) { settings[k] = DEFAULTS[k]; });
+    if (reduceMotion) settings.animations = false;
+    saveSettings(); applySettings(); renderSettings(); Sound.play('click');
+  });
+}
+
+/* ---------- Apply settings & layout ---------- */
+function applySettings() {
+  var d = document.documentElement;
+  d.classList.toggle('anim', !!settings.animations);
+  d.classList.toggle('no-anim', !settings.animations);
+  d.classList.toggle('no-words', !settings.showWords);
+  d.classList.toggle('no-illus', !settings.showIllus);
+  d.classList.toggle('compact', !!settings.compact);
+  $('soon').classList.toggle('hidden', !settings.showSoon || !soon.length);
+  $('btnSound').innerHTML = settings.sound ? ICON.soundOn : ICON.soundOff;
+  $('btnSound').setAttribute('aria-pressed', settings.sound ? 'true' : 'false');
+  applyTargets();
+  layout();
+}
+/* FIT on wide landscape screens (1rem ≈ 1% of height → everything fits 1080p),
+   FLOW elsewhere (natural scrolling, 3 / 2 / 1 columns). */
+function layout() {
+  var w = window.innerWidth, h = window.innerHeight, d = document.documentElement;
+  var fit = w >= 1000 && w / h >= 1.55;
+  d.classList.toggle('fit', fit); d.classList.toggle('flow', !fit);
+  var cols = fit ? 3 : (w >= 900 ? 3 : (w >= 380 ? 2 : 1));
+  d.classList.toggle('cols2', cols === 2); d.classList.toggle('cols1', cols === 1);
+  // More than 9 letters: FIT mode switches to 4 compact columns (12 letters = 4 × 3)
+  var n = active.length, dense = fit && n > 9;
+  var gcols = !fit ? 0 : (n <= 9 ? 3 : n <= 20 ? 4 : n <= 24 ? 6 : 7), grows = fit ? Math.ceil(n / gcols) : 0;
+  d.classList.toggle('dense', dense);
+  d.classList.toggle('dense4', dense && grows >= 4);      // 4 rows → compact cards
+  d.classList.toggle('dense5', dense && grows >= 5);      // 5 rows (17–20 letters) → smaller hero
+  d.classList.toggle('dense6', dense && gcols >= 6);      // 21–24 letters → 6 × 4; 25–28 → 7 × 4
+  d.classList.toggle('dense7', dense && gcols >= 7);
+  $('grid').style.gridTemplateRows = fit ? 'repeat(' + grows + ',1fr)' : '';
+  $('grid').style.gridTemplateColumns = fit && gcols > 4 ? 'repeat(' + gcols + ',1fr)' : '';
+  var u;
+  if (fit) u = Math.min(h / 100, w / 177.8);
+  else u = Math.max(6, Math.min(9, w / (cols === 3 ? 130 : cols === 2 ? 92 : 56)));
+  d.style.fontSize = u + 'px';
+}
+
+/* ---------- Fullscreen ---------- */
+function fsSupported() { var d = document.documentElement; return !!(d.requestFullscreen || d.webkitRequestFullscreen); }
+function toggleFullscreen() {
+  var d = document.documentElement;
+  try {
+    if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    else { var r = (d.requestFullscreen || d.webkitRequestFullscreen).call(d); if (r && r.catch) r.catch(function () {}); }
+  } catch (e) {}
+}
+
+/* ---------- Network status ---------- */
+function updateNet() { $('netBanner').classList.toggle('hidden', navigator.onLine !== false); }
+
+/* =====================================================================
+   8. INIT
+   ===================================================================== */
+function init() {
+  loadSettings();
+  $('scene').innerHTML = buildScene();
+  $('schoolName').textContent = CONFIG.schoolName;
+  $('brand').insertAdjacentHTML('afterbegin', ICON.emblem);
+  $('title').textContent = CONFIG.title;
+  $('subtitle').textContent = CONFIG.subtitle;
+  $('welcome').textContent = CONFIG.welcome;
+  $('instruction').textContent = CONFIG.instruction;
+  $('bubbleR').textContent = CONFIG.salimSays;
+  $('bubbleL').textContent = CONFIG.maryamSays;
+  $('footSchool').textContent = CONFIG.schoolName;
+  $('footLine').innerHTML = CONFIG.footer + ' <span class="heart">♥</span>';
+  each(document.querySelectorAll('[data-kid]'), function (el) { el.innerHTML = el.getAttribute('data-kid') === 'boy' ? boySVG() : girlSVG(); });
+  each(document.querySelectorAll('[data-icon]'), function (el) { el.innerHTML = ICON[el.getAttribute('data-icon')]; });
+  $('pvPlay').insertAdjacentHTML('beforeend', ICON.play);   // RTL: "forward" points left
+  $('pvSpeak').insertAdjacentHTML('afterbegin', ICON.speaker);
+  // Gentle floating letters in the hero (decorative only)
+  var fl = ['أ', 'ب', 'ت', 'ث', 'ج', 'ح'], pos = [[6, 30], [16, 62], [30, 24], [70, 26], [84, 60], [93, 30]], fh = '';
+  for (var i = 0; i < fl.length; i++) fh += '<span class="floater" style="left:' + pos[i][0] + '%;top:' + pos[i][1] + '%;font-size:' + (5 + (i % 3)) + 'rem;animation-delay:-' + (i * 1.4) + 's">' + fl[i] + '</span>';
+  $('floaters').innerHTML = fh;
+  if (!fsSupported()) $('btnFull').classList.add('hidden');
+
+  renderCards(); renderSoon();
+  applySettings();
+
+  onTap($('btnSettings'), function () { Sound.play('click'); renderSettings(); showModal('settings'); });
+  onTap($('btnSound'), function () { settings.sound = !settings.sound; saveSettings(); applySettings(); Sound.play('click'); });
+  onTap($('btnFull'), function () { Sound.play('click'); toggleFullscreen(); });
+  onTap($('pvSpeak'), function (e) { var p = active[+$('pvSpeak').getAttribute('data-i')]; Speech.speak('حَرْفُ ' + p.name + '. ' + p.word); });
+  $('pvPlay').addEventListener('click', function (e) { Sound.play('select'); });
+  pressFX($('pvPlay')); pressFX($('offRetry'));
+  $('offRetry').addEventListener('click', function (e) { if (navigator.onLine === false) e.preventDefault(); });
+  each(document.querySelectorAll('[data-close]'), function (b) { onTap(b, function () { Sound.play('click'); closeModal(); }); });
+  each(document.querySelectorAll('.modal'), function (m) { m.addEventListener('click', function (e) { if (e.target === m) closeModal(); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Tab') document.documentElement.classList.add('kbd'); if (e.key === 'Escape') closeModal(); });
+  document.addEventListener('pointerdown', function () { document.documentElement.classList.remove('kbd'); }, true);
+
+  // Welcome chime on the first interaction only (never autoplay)
+  var welcomed = false;
+  var firstTouch = function (e) {
+    if (welcomed) return; welcomed = true;
+    if (!(e.target.closest && e.target.closest('a.card'))) Sound.play('welcome'); else Sound.unlock();
+  };
+  document.addEventListener('pointerdown', firstTouch, true);
+  document.addEventListener('touchstart', firstTouch, true);
+
+  window.addEventListener('online', updateNet); window.addEventListener('offline', updateNet); updateNet();
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 100); });
+  window.addEventListener('orientationchange', function () { setTimeout(layout, 200); });
+  Speech.init();
+  Roster.init();                      // «مَنْ أَنْتَ؟» — student record (Google Sheet)
+}
+
+// Read-only hook for QA
+window.TajheezHome = { pages: alphabetPages, settings: settings, linkTarget: linkTarget, framed: FRAMED };
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<script>if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) { window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); }</script>
+</body>
+</html>
