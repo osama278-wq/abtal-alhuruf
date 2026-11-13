@@ -5,7 +5,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<script src="config.js"></script>
+<link rel="icon" href="favicon.ico" sizes="any">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#C62828">
 <title>عالم الحروف العربية — مدرسة التجهيز العلمي الخاصة</title>
@@ -324,60 +324,8 @@ footer b{display:block;font-size:2.4rem;color:var(--green-d)}
 .foot-credit{margin-top:1.6rem}
 .flow .foot-credit .credit{white-space:normal;text-align:left;max-width:100%}
 
-/* ---------- Student record: «مَنْ أَنْتَ؟» ---------- */
-.ro-modal{position:fixed;top:0;left:0;width:100%;height:100%;z-index:70;background:rgba(35,51,74,.6);display:none;align-items:center;justify-content:center;padding:2rem}
-.ro-modal.open{display:flex}
-.ro-card{position:relative;display:flex;flex-direction:row;align-items:stretch;width:132rem;max-width:97%;max-height:96%;overflow:hidden;
-  background:var(--cream,#FFFDF5);border-radius:4.4rem;border:.6rem solid #fff;box-shadow:0 3rem 6rem rgba(0,0,0,.3)}
-.ro-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2rem;background-image:var(--pattern);background-size:4rem 2rem;background-repeat:repeat-x}
-.ro-kids{flex:none;width:34rem;display:flex;align-items:flex-end;justify-content:center;padding:4rem 1rem 2rem;background:linear-gradient(#DDF1F7,#F7E8C8)}
-.ro-kid{display:block;width:15rem;height:24rem}
-.ro-kid svg{width:100%;height:100%;overflow:visible}
-.ro-main{flex:1;min-width:0;padding:5rem 5rem 3rem;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.ro-step{display:none}
-.ro-step.on{display:block}
-.ro-step h2{font-size:5.4rem;line-height:1.4;color:var(--red,#C62828)}
-.ro-sub{font-size:2.8rem;line-height:1.6;color:var(--ink,var(--navy,#23334A));margin:.6rem 0 2.4rem}
-.ro-input{display:block;width:100%;height:9.6rem;border-radius:3rem;border:.5rem solid #EAD3A6;background:#fff;padding:0 3rem;
-  font:inherit;font-size:4rem;font-weight:700;color:var(--ink,var(--navy,#23334A));-webkit-user-select:text;user-select:text;-webkit-appearance:none;outline:none}
-.ro-input:focus{border-color:var(--gold,#F4C95D);box-shadow:0 0 0 .6rem rgba(244,201,93,.35)}
-#roEmail{text-align:left;font-family:"Segoe UI","Roboto","Helvetica Neue","Noto Sans",Arial,sans-serif}
-.ro-domains{display:flex;flex-wrap:wrap;margin:1.4rem 0 0}
-.ro-chip{min-height:6.4rem;padding:0 2.6rem;margin:0 0 1rem 1.2rem;border-radius:3.2rem;background:#E2F2FB;color:#1F5F86;border:.35rem solid #8FD3F4;
-  font-family:"Segoe UI","Roboto",Arial,sans-serif;font-size:2.8rem;font-weight:700}
-.ro-actions{display:flex;flex-wrap:wrap;align-items:center;margin-top:2.6rem}
-.ro-btn{min-height:9rem;padding:0 4.6rem;margin:0 0 1.4rem 1.8rem;font-size:3.4rem;white-space:nowrap}
-.ro-btn.is-disabled,.ro-btn[disabled]{opacity:.45;pointer-events:none}
-.ro-status{min-height:3.6rem;font-size:2.6rem;line-height:1.5;font-weight:700;color:#4A5568;margin-top:.6rem}
-.ro-status.bad{color:var(--red,#C62828)}
-.ro-recent{margin-bottom:1.4rem}
-.ro-recent-t{font-size:2.3rem;font-weight:700;color:#6B7686;margin-bottom:1rem}
-.ro-person{display:inline-flex;flex-direction:column;align-items:flex-start;min-width:24rem;padding:1.2rem 2.4rem;margin:0 0 1.2rem 1.2rem;border-radius:2.6rem;
-  background:#fff;border:.4rem solid #E3CFA6;box-shadow:0 .6rem 0 #E3CFA6;text-align:right}
-.ro-person b{font-size:3.2rem;line-height:1.4;color:var(--ink,var(--navy,#23334A))}
-.ro-person span{font-family:"Segoe UI",Roboto,Arial,sans-serif;font-size:1.9rem;color:#6B7686;direction:ltr}
-.ro-person.pressing,.ro-chip.pressing{transform:translateY(.4rem)}
-.ro-summary p{font-size:3.2rem;line-height:1.7;margin:1rem 0}
-.ro-big{font-size:5rem;color:var(--red,#C62828);padding:0 .6rem}
-.ro-stages{display:flex;flex-wrap:wrap;margin:1.6rem 0 .6rem}
-.ro-st{font-size:2.8rem;font-weight:700;line-height:1.5;padding:.8rem 2.6rem;margin:0 0 1.2rem 1.2rem;border-radius:3rem;background:#F1ECE2;color:#8A7A62;border:.35rem dashed #CFC5B3}
-.ro-st.on{background:#E3F5E6;color:#1B5E35;border:.35rem solid #27864B}
-/* chip on the page: «👤 name — تغيير» */
-.ro-chipbar{position:absolute;z-index:8;display:inline-flex;align-items:center;max-width:60rem;padding:.8rem 1rem .8rem 2.4rem;border-radius:4rem;background:#fff;
-  box-shadow:0 .6rem 0 #E3CFA6,0 1rem 1.6rem rgba(35,51,74,.15);font-family:inherit;color:var(--ink,var(--navy,#23334A))}
-.ro-chipbar.pressing{transform:translateY(.4rem)}
-.ro-av{flex:none;width:5.6rem;height:5.6rem;border-radius:50%;background:var(--green,#27864B);color:#fff;font-size:3rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:1.4rem}
-.ro-nm{font-size:2.8rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ro-nm i{font-style:normal;color:#8A7A62;font-size:2.3rem}
-.ro-sw{flex:none;font-size:2.2rem;font-weight:700;color:#2E86B8;margin-right:1.6rem;border-right:.3rem solid #E3CFA6;padding-right:1.4rem}
-/* games: stage card already finished by this student */
-.mode-card.ro-done{box-shadow:0 0 0 .7rem #27864B,0 1rem 0 rgba(35,51,74,.2)}
-.ro-check{position:absolute;top:3.4rem;left:1.8rem;width:6rem;height:6rem;border-radius:50%;background:#27864B;color:#fff;font-size:3.6rem;font-weight:700;
-  display:flex;align-items:center;justify-content:center;border:.5rem solid #fff;box-shadow:0 .5rem 1rem rgba(0,0,0,.2);z-index:2}
-.ro-setbtns{display:flex;flex-wrap:wrap;margin-top:1.4rem}
-.ro-toast{position:fixed;z-index:75;left:50%;bottom:4rem;transform:translate(-50%,2rem);opacity:0;pointer-events:none;max-width:90%;background:#23334A;color:#fff;font-size:2.8rem;font-weight:700;line-height:1.5;padding:1.4rem 3.2rem;border-radius:3rem;box-shadow:0 1rem 2.4rem rgba(0,0,0,.25);transition:opacity .3s,transform .3s}
-.ro-toast.show{opacity:1;transform:translate(-50%,0)}
-.ro-setbtns .ro-btn{min-height:7.4rem;font-size:2.8rem;padding:0 3.4rem}
+/* ---------- progress badges on the letter cards (this device) ---------- */
+
 .hero .ro-chipbar{top:10.4rem;right:2rem}
 .flow .hero .ro-chipbar{position:relative;top:auto;right:auto;margin:1.2rem auto 0}
 .ro-badge{position:absolute;z-index:4;bottom:1.6rem;left:1.4rem;min-width:5rem;height:5rem;padding:0 1rem;border-radius:2.5rem;display:flex;align-items:center;justify-content:center;
@@ -395,11 +343,27 @@ footer b{display:block;font-size:2.4rem;color:var(--green-d)}
 
 /* Reduced motion / animations off */
 .no-anim *,.no-anim *::before,.no-anim *::after{animation:none !important;transition:none !important}
+
+/* Arabic credit line (every page) */
+.credit-ar{display:flex;align-items:center;justify-content:center;width:max-content;max-width:94%;margin:0 auto 1rem;direction:rtl;
+  background:rgba(255,253,245,.94);color:#1B2A42;border:.3rem solid #F4C95D;border-radius:4rem;padding:.6rem 2.6rem .6rem 1rem;
+  font-size:2.15rem;font-weight:700;line-height:1.45;box-shadow:0 .6rem 1.6rem rgba(27,42,66,.16);white-space:normal;text-align:center}
+.credit-ar .ca-ico{flex:none;width:4.2rem;height:4.2rem;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3A5478,#1B2A42);display:flex;align-items:center;justify-content:center;margin-left:1.2rem}
+.credit-ar .ca-ico svg{width:2.8rem;height:2.8rem}
+.credit-ar.small{font-size:1.7rem;padding:.4rem 2rem .4rem .7rem;margin:1.2rem auto 0}
+.credit-ar.small .ca-ico{width:3.2rem;height:3.2rem}
+.credit-ar.small .ca-ico svg{width:2.2rem;height:2.2rem}
+.hero-credit{top:9.6rem}
+.hero-credit .credit-ar{margin:0 0 .5rem;font-size:1.35rem;padding:.2rem 1.4rem .2rem .45rem;white-space:nowrap;max-width:none;border-width:.2rem}
+.hero-credit .credit{font-size:1.3rem}
+.hero-credit .credit-ar .ca-ico{width:2.6rem;height:2.6rem;margin-left:.8rem}
+.hero-credit .credit-ar .ca-ico svg{width:2rem;height:2rem}
+.foot-credit .credit-ar{margin-bottom:1.2rem}
 </style>
 </head>
 <body>
 <div id="scene" aria-hidden="true"></div>
-<div id="netBanner" class="hidden" role="status">لَا يُوجَدُ اتِّصَالٌ بِالْإِنْتَرْنِتِ الْآنَ — يُمْكِنُكُمُ اللَّعِبُ، وَيُحْفَظُ التَّقَدُّمُ عِنْدَ عَوْدَةِ الِاتِّصَالِ.</div>
+<div id="netBanner" class="hidden" role="status">لَا يُوجَدُ اتِّصَالٌ بِالْإِنْتَرْنِتِ الْآنَ — يُمْكِنُكُمُ اللَّعِبُ وَإِصْدَارُ الشَّهَادَاتِ كَالْمُعْتَادِ.</div>
 
 <div id="app">
   <header class="hero">
@@ -410,7 +374,7 @@ footer b{display:block;font-size:2.4rem;color:var(--green-d)}
       <button class="tool" id="btnSound" aria-label="الصوت"></button>
       <button class="tool" id="btnFull" aria-label="ملء الشاشة" data-icon="full"></button>
     </div>
-    <div class="hero-credit"><div class="credit small" dir="ltr" lang="en" role="note" title="Created by Technology lab - Altajheez Al Ilmi School - 79395837" aria-label="Created by Technology lab - Altajheez Al Ilmi School - 79395837"><span class="cr-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9 5.2v10.4l-9 5.2-9-5.2V6.8z" fill="none" stroke="#F4C95D" stroke-width="1.4"/><path d="M10 6.2h4M10.8 6.2v3.6L7.6 15.4a1.4 1.4 0 0 0 1.2 2.1h6.4a1.4 1.4 0 0 0 1.2-2.1l-3.2-5.6V6.2" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.9 13.6h6.2l1.1 1.8a1.4 1.4 0 0 1-1.2 2.1H8.8a1.4 1.4 0 0 1-1.2-2.1z" fill="#F4C95D"/><circle cx="18.6" cy="9" r="1" fill="#8FD3F4"/><circle cx="5.4" cy="9" r="1" fill="#8FD3F4"/><path d="M16.2 9h1.4M6.4 9h1.4" stroke="#8FD3F4" stroke-width=".9"/></svg></span><span class="cr-line"><span class="cr-k">Created by</span> <b>Technology lab</b><span class="cr-sep"> - </span>Altajheez Al Ilmi School<span class="cr-sep"> - </span><span class="cr-tel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5l2.6-.6 1.6 4.2-1.9 1.4a11 11 0 0 0 6.6 6.6l1.4-1.9 4.2 1.6-.6 2.6a2 2 0 0 1-2 1.6A16.5 16.5 0 0 1 5 5.5a2 2 0 0 1 1.6-2z" fill="#F4C95D"/></svg>79395837</span></span></div></div>
+    <div class="hero-credit"><div class="credit-ar small" role="note" aria-label="تم إنجاز هذا العمل بواسطة المختبر التقني / مدرسة التجهيز العلمي الخاصة"><span class="ca-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9 5.2v10.4l-9 5.2-9-5.2V6.8z" fill="none" stroke="#F4C95D" stroke-width="1.4"/><path d="M10 6.2h4M10.8 6.2v3.6L7.6 15.4a1.4 1.4 0 0 0 1.2 2.1h6.4a1.4 1.4 0 0 0 1.2-2.1l-3.2-5.6V6.2" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.9 13.6h6.2l1.1 1.8a1.4 1.4 0 0 1-1.2 2.1H8.8a1.4 1.4 0 0 1-1.2-2.1z" fill="#F4C95D"/></svg></span><span>تَمَّ إِنْجَازُ هَذَا الْعَمَلِ بِوَاسِطَةِ الْمُخْتَبَرِ التِّقْنِيِّ / مَدْرَسَةِ التَّجْهِيزِ الْعِلْمِيِّ الْخَاصَّةِ</span></div><div class="credit small" dir="ltr" lang="en" role="note" title="Created by Technology lab - Altajheez Al Ilmi School - 79395837" aria-label="Created by Technology lab - Altajheez Al Ilmi School - 79395837"><span class="cr-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9 5.2v10.4l-9 5.2-9-5.2V6.8z" fill="none" stroke="#F4C95D" stroke-width="1.4"/><path d="M10 6.2h4M10.8 6.2v3.6L7.6 15.4a1.4 1.4 0 0 0 1.2 2.1h6.4a1.4 1.4 0 0 0 1.2-2.1l-3.2-5.6V6.2" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.9 13.6h6.2l1.1 1.8a1.4 1.4 0 0 1-1.2 2.1H8.8a1.4 1.4 0 0 1-1.2-2.1z" fill="#F4C95D"/><circle cx="18.6" cy="9" r="1" fill="#8FD3F4"/><circle cx="5.4" cy="9" r="1" fill="#8FD3F4"/><path d="M16.2 9h1.4M6.4 9h1.4" stroke="#8FD3F4" stroke-width=".9"/></svg></span><span class="cr-line"><span class="cr-k">Created by</span> <b>Technology lab</b><span class="cr-sep"> - </span>Altajheez Al Ilmi School<span class="cr-sep"> - </span><span class="cr-tel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5l2.6-.6 1.6 4.2-1.9 1.4a11 11 0 0 0 6.6 6.6l1.4-1.9 4.2 1.6-.6 2.6a2 2 0 0 1-2 1.6A16.5 16.5 0 0 1 5 5.5a2 2 0 0 1 1.6-2z" fill="#F4C95D"/></svg>79395837</span></span></div></div>
     <div class="title-plaque">
       <h1 id="title"></h1>
       <div class="sub" id="subtitle"></div>
@@ -435,7 +399,7 @@ footer b{display:block;font-size:2.4rem;color:var(--green-d)}
   <footer>
     <b id="footSchool"></b>
     <span id="footLine"></span>
-    <div class="foot-credit"><div class="credit" dir="ltr" lang="en" role="note" title="Created by Technology lab - Altajheez Al Ilmi School - 79395837" aria-label="Created by Technology lab - Altajheez Al Ilmi School - 79395837"><span class="cr-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9 5.2v10.4l-9 5.2-9-5.2V6.8z" fill="none" stroke="#F4C95D" stroke-width="1.4"/><path d="M10 6.2h4M10.8 6.2v3.6L7.6 15.4a1.4 1.4 0 0 0 1.2 2.1h6.4a1.4 1.4 0 0 0 1.2-2.1l-3.2-5.6V6.2" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.9 13.6h6.2l1.1 1.8a1.4 1.4 0 0 1-1.2 2.1H8.8a1.4 1.4 0 0 1-1.2-2.1z" fill="#F4C95D"/><circle cx="18.6" cy="9" r="1" fill="#8FD3F4"/><circle cx="5.4" cy="9" r="1" fill="#8FD3F4"/><path d="M16.2 9h1.4M6.4 9h1.4" stroke="#8FD3F4" stroke-width=".9"/></svg></span><span class="cr-line"><span class="cr-k">Created by</span> <b>Technology lab</b><span class="cr-sep"> - </span>Altajheez Al Ilmi School<span class="cr-sep"> - </span><span class="cr-tel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5l2.6-.6 1.6 4.2-1.9 1.4a11 11 0 0 0 6.6 6.6l1.4-1.9 4.2 1.6-.6 2.6a2 2 0 0 1-2 1.6A16.5 16.5 0 0 1 5 5.5a2 2 0 0 1 1.6-2z" fill="#F4C95D"/></svg>79395837</span></span></div></div>
+    <div class="foot-credit"><div class="credit-ar" role="note" aria-label="تم إنجاز هذا العمل بواسطة المختبر التقني / مدرسة التجهيز العلمي الخاصة"><span class="ca-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9 5.2v10.4l-9 5.2-9-5.2V6.8z" fill="none" stroke="#F4C95D" stroke-width="1.4"/><path d="M10 6.2h4M10.8 6.2v3.6L7.6 15.4a1.4 1.4 0 0 0 1.2 2.1h6.4a1.4 1.4 0 0 0 1.2-2.1l-3.2-5.6V6.2" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.9 13.6h6.2l1.1 1.8a1.4 1.4 0 0 1-1.2 2.1H8.8a1.4 1.4 0 0 1-1.2-2.1z" fill="#F4C95D"/></svg></span><span>تَمَّ إِنْجَازُ هَذَا الْعَمَلِ بِوَاسِطَةِ الْمُخْتَبَرِ التِّقْنِيِّ / مَدْرَسَةِ التَّجْهِيزِ الْعِلْمِيِّ الْخَاصَّةِ</span></div><div class="credit" dir="ltr" lang="en" role="note" title="Created by Technology lab - Altajheez Al Ilmi School - 79395837" aria-label="Created by Technology lab - Altajheez Al Ilmi School - 79395837"><span class="cr-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9 5.2v10.4l-9 5.2-9-5.2V6.8z" fill="none" stroke="#F4C95D" stroke-width="1.4"/><path d="M10 6.2h4M10.8 6.2v3.6L7.6 15.4a1.4 1.4 0 0 0 1.2 2.1h6.4a1.4 1.4 0 0 0 1.2-2.1l-3.2-5.6V6.2" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.9 13.6h6.2l1.1 1.8a1.4 1.4 0 0 1-1.2 2.1H8.8a1.4 1.4 0 0 1-1.2-2.1z" fill="#F4C95D"/><circle cx="18.6" cy="9" r="1" fill="#8FD3F4"/><circle cx="5.4" cy="9" r="1" fill="#8FD3F4"/><path d="M16.2 9h1.4M6.4 9h1.4" stroke="#8FD3F4" stroke-width=".9"/></svg></span><span class="cr-line"><span class="cr-k">Created by</span> <b>Technology lab</b><span class="cr-sep"> - </span>Altajheez Al Ilmi School<span class="cr-sep"> - </span><span class="cr-tel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5l2.6-.6 1.6 4.2-1.9 1.4a11 11 0 0 0 6.6 6.6l1.4-1.9 4.2 1.6-.6 2.6a2 2 0 0 1-2 1.6A16.5 16.5 0 0 1 5 5.5a2 2 0 0 1 1.6-2z" fill="#F4C95D"/></svg>79395837</span></span></div></div>
   </footer>
 </div>
 
@@ -864,7 +828,7 @@ function renderCards() {
     '</div>';
   });
   grid.innerHTML = html;
-  if (window.TajheezRoster) setTimeout(function () { TajheezRoster.refresh(); }, 0);
+  setTimeout(showLocalProgress, 0);
   each(grid.querySelectorAll('a.card'), function (a) { pressFX(a); a.addEventListener('click', onCardClick); });
   each(grid.querySelectorAll('.info-btn'), function (b) { onTap(b, function () { Sound.play('click'); openPreview(+b.getAttribute('data-i')); }); });
   applyTargets();
@@ -929,286 +893,6 @@ function openPreview(i) {
 }
 function showOffline(url) { $('offRetry').setAttribute('href', url); applyTargets(); showModal('offline'); }
 
-/* =====================================================================
-   STUDENT RECORD — «مَنْ أَنْتَ؟»  (Google Sheet via Apps Script web app)
-   • The child (or teacher) types the student's e-mail → the sheet returns
-     the name + what this student already finished.
-   • Unknown e-mail / no connection → «اكتب اسمك» → plays as a guest.
-   • Each finished stage is saved to the sheet (students) or the log (guests).
-   • Works with no server too: if ROSTER_API_URL is empty the whole feature
-     is switched off and the page behaves exactly as before.
-   ===================================================================== */
-var ROSTER_API_URL = (window.TAJHEEZ_CONFIG && TAJHEEZ_CONFIG.apiUrl) || 'PASTE_WEB_APP_URL_HERE';      // ← Apps Script «Web app URL» (…/exec)
-var ROSTER_DOMAINS = (window.TAJHEEZ_CONFIG && TAJHEEZ_CONFIG.emailDomains) || ['@gmail.com'];                // quick buttons under the e-mail box
-var Roster = (function () {
-  var PAGE = (typeof LESSON !== 'undefined') ? 'game' : 'home';
-  var STAGE_ORDER = ['beginning', 'middle', 'end', 'mixed'];
-  var STAGE_AR = { beginning: 'أَوَّلُ الْكَلِمَةِ', middle: 'وَسَطُ الْكَلِمَةِ', end: 'آخِرُ الْكَلِمَةِ', mixed: 'التَّحَدِّي الشَّامِلُ' };
-  var LS = 'tajheezRoster.v1';
-  var student = null;            // { email, name, guest, progress:{letter:{mode:{stars,total}}}, count, finalLetter, current }
-  var cbN = 0, el = {}, busy = false;
-  var arN = (typeof arNum === 'function') ? arNum : function (n) { return String(n).replace(/\d/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'.charAt(+d); }); };
-
-  function enabled() { return /^https:\/\/script\.google(usercontent)?\.com\//.test(ROSTER_API_URL) && settings.roster !== false; }
-  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]; }); }
-  function mem() { try { return JSON.parse(localStorage.getItem(LS) || '{}') || {}; } catch (e) { return {}; } }
-  function memSave(m) { try { localStorage.setItem(LS, JSON.stringify(m)); } catch (e) {} }
-  function remember() { return settings.rosterRemember !== false; }
-
-  /* ---------- JSONP call (works inside Google Sites embeds, no CORS) ---------- */
-  function api(params, done) {
-    var name = '__tjRoster' + (++cbN) + '_' + Date.now(), s = document.createElement('script'), fin = false;
-    var q = Object.keys(params).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); }).join('&');
-    var end = function (res) { if (fin) return; fin = true; clearTimeout(t); try { delete window[name]; } catch (e) { window[name] = undefined; } if (s.parentNode) s.parentNode.removeChild(s); done(res); };
-    var t = setTimeout(function () { end({ ok: false, error: 'timeout' }); }, 15000);
-    window[name] = function (res) { end(res || { ok: false }); };
-    s.onerror = function () { end({ ok: false, error: 'network' }); };
-    s.src = ROSTER_API_URL + (ROSTER_API_URL.indexOf('?') < 0 ? '?' : '&') + q + '&callback=' + name + '&_=' + Date.now();
-    document.head.appendChild(s);
-  }
-  /* finished stages that could not be sent are kept and retried */
-  function outboxPush(item) { var m = mem(); (m.outbox = m.outbox || []).push(item); if (m.outbox.length > 60) m.outbox = m.outbox.slice(-60); memSave(m); }
-  function flush() {
-    var m = mem(); if (!m.outbox || !m.outbox.length || !enabled() || navigator.onLine === false) return;
-    var item = m.outbox.shift(); memSave(m);
-    api(item, function (r) { if (r && r.ok) flush(); else outboxPush(item); });
-  }
-
-  /* ---------- UI ---------- */
-  var KID = function (fn) { return fn().replace('<svg ', '<svg aria-hidden="true" '); };
-  function build() {
-    if (el.modal) return;
-    var m = document.createElement('div');
-    m.id = 'rosterModal'; m.className = 'ro-modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-label', 'من أنت؟');
-    m.innerHTML =
-      '<div class="ro-card">' +
-        '<div class="ro-kids"><span class="ro-kid">' + KID(boySVG) + '</span><span class="ro-kid">' + KID(girlSVG) + '</span></div>' +
-        '<div class="ro-main">' +
-          /* step 1 — e-mail */
-          '<section class="ro-step" data-step="email">' +
-            '<h2>مَنْ أَنْتَ؟</h2>' +
-            '<p class="ro-sub">اكْتُبْ بَرِيدَكَ الْإِلِكْتُرُونِيَّ لِنَعْرِفَكَ وَنَحْفَظَ مَا تُنْجِزُهُ.</p>' +
-            '<div class="ro-recent" id="roRecent"></div>' +
-            '<input id="roEmail" class="ro-input" type="email" inputmode="email" dir="ltr" lang="en" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="name@gmail.com" maxlength="80">' +
-            '<div class="ro-domains" id="roDomains"></div>' +
-            '<div class="ro-actions"><button class="btn ro-btn" id="roGo"><span>دُخُولٌ</span></button>' +
-            '<button class="btn btn-light ro-btn" id="roGuest"><span>الدُّخُولُ كَضَيْفٍ</span></button></div>' +
-          '</section>' +
-          /* step 2 — guest name */
-          '<section class="ro-step" data-step="name">' +
-            '<h2>مَا اسْمُكَ؟</h2>' +
-            '<p class="ro-sub" id="roWhy">سَتَلْعَبُ كَضَيْفٍ.</p>' +
-            '<input id="roName" class="ro-input" type="text" dir="rtl" autocomplete="off" spellcheck="false" placeholder="اكْتُبِ اسْمَكَ هُنَا" maxlength="40">' +
-            '<div class="ro-actions"><button class="btn ro-btn" id="roStartGuest"><span>هَيَّا نَلْعَبُ</span></button>' +
-            '<button class="btn btn-light ro-btn" id="roBack"><span>رُجُوعٌ</span></button></div>' +
-          '</section>' +
-          /* step 3 — welcome back */
-          '<section class="ro-step" data-step="hello">' +
-            '<h2 id="roHello"></h2>' +
-            '<div class="ro-summary" id="roSummary"></div>' +
-            '<div class="ro-actions"><button class="btn ro-btn" id="roStart"><span>هَيَّا نَبْدَأُ</span></button>' +
-            '<button class="btn btn-light ro-btn" id="roNotMe"><span>لَسْتُ أَنَا</span></button></div>' +
-          '</section>' +
-          '<p class="ro-status" id="roStatus" role="status"></p>' +
-        '</div>' +
-      '</div>';
-    document.body.appendChild(m);
-    el.modal = m;
-    ['roEmail', 'roName', 'roRecent', 'roDomains', 'roStatus', 'roHello', 'roSummary', 'roWhy'].forEach(function (id) { el[id] = $(id); });
-    el.roDomains.innerHTML = ROSTER_DOMAINS.map(function (d) { return '<button class="ro-chip" data-d="' + esc(d) + '" dir="ltr">' + esc(d) + '</button>'; }).join('');
-    each(el.roDomains.querySelectorAll('.ro-chip'), function (b) {
-      onTap(b, function () { var v = el.roEmail.value.replace(/@.*$/, ''); el.roEmail.value = v + b.getAttribute('data-d'); Sound.play('tap'); el.roEmail.focus(); });
-    });
-    var enter = function (inp, fn) { inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); fn(); } }); };
-    enter(el.roEmail, signInEmail); enter(el.roName, signInGuest);
-    onTap($('roGo'), function () { Sound.play('tap'); signInEmail(); });
-    onTap($('roGuest'), function () { Sound.play('tap'); el.roWhy.textContent = 'سَتَلْعَبُ كَضَيْفٍ، وَلَنْ يُحْفَظَ تَقَدُّمُكَ بِاسْمِكَ.'; step('name'); });
-    onTap($('roStartGuest'), function () { Sound.play('tap'); signInGuest(); });
-    onTap($('roBack'), function () { Sound.play('tap'); step('email'); });
-    onTap($('roStart'), function () { Sound.play('tap'); close(); });
-    onTap($('roNotMe'), function () { Sound.play('tap'); signOut(true); });
-  }
-  function step(s) {
-    each(el.modal.querySelectorAll('.ro-step'), function (x) { x.classList.toggle('on', x.getAttribute('data-step') === s); });
-    status('');
-    var f = s === 'email' ? el.roEmail : s === 'name' ? el.roName : null;
-    if (f) setTimeout(function () { try { f.focus(); } catch (e) {} }, 60);
-  }
-  function status(t, bad) { if (!el.roStatus) return; el.roStatus.textContent = t || ''; el.roStatus.classList.toggle('bad', !!bad); }
-  function renderRecent() {
-    var list = remember() ? (mem().recent || []) : [];
-    el.roRecent.innerHTML = list.length ? '<div class="ro-recent-t">طُلَّابٌ دَخَلُوا مِنْ هَذَا الْجِهَازِ:</div>' + list.map(function (r, i) {
-      return '<button class="ro-person" data-i="' + i + '"><b>' + esc(r.name) + '</b><span dir="ltr">' + esc(r.email) + '</span></button>';
-    }).join('') : '';
-    each(el.roRecent.querySelectorAll('.ro-person'), function (b) {
-      onTap(b, function () { Sound.play('tap'); el.roEmail.value = list[+b.getAttribute('data-i')].email; signInEmail(); });
-    });
-  }
-  function open() {
-    if (!enabled()) return;
-    build(); renderRecent(); el.roEmail.value = ''; el.roName.value = '';
-    step('email'); el.modal.classList.add('open');
-  }
-  function close() { if (el.modal) el.modal.classList.remove('open'); renderChip(); }
-
-  /* ---------- sign in / out ---------- */
-  function signInEmail() {
-    if (busy) return;
-    var email = el.roEmail.value
-      .replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069\uFEFF\u00A0]/g, '')   // invisible direction marks from RTL keyboards
-      .replace(/[\u0660-\u0669]/g, function (d) { return String(d.charCodeAt(0) - 0x660); })   // ٠-٩ → 0-9
-      .replace(/[\u06F0-\u06F9]/g, function (d) { return String(d.charCodeAt(0) - 0x6F0); })
-      .replace(/[＠]/g, '@').replace(/[٫،]/g, '.').trim().toLowerCase().replace(/\s+/g, '');
-    el.roEmail.value = email;
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { status('اكْتُبِ الْبَرِيدَ كَامِلًا، مِثْلَ: name@gmail.com', true); Sound.play('try'); return; }
-    if (navigator.onLine === false) { offerGuest('لَا يُوجَدُ اتِّصَالٌ بِالْإِنْتَرْنِتِ الْآنَ — يُمْكِنُكَ اللَّعِبُ كَضَيْفٍ.', email); return; }
-    busy = true; status('جَارٍ الْبَحْثُ…'); $('roGo').classList.add('is-disabled');
-    api({ action: 'lookup', email: email }, function (r) {
-      busy = false; $('roGo').classList.remove('is-disabled');
-      if (!r || !r.ok) { offerGuest('تَعَذَّرَ الِاتِّصَالُ بِسِجِلِّ الطُّلَّابِ — يُمْكِنُكَ اللَّعِبُ كَضَيْفٍ.', email); return; }
-      if (!r.found) { offerGuest('لَمْ نَجِدْ هَذَا الْبَرِيدَ فِي السِّجِلِّ ( ' + email + ' ) — اكْتُبِ اسْمَكَ لِتَلْعَبَ كَضَيْفٍ.', email); return; }
-      setStudent({ email: r.email, name: r.name || email, guest: false, progress: r.progress || {}, count: r.count || 0, total: r.total || 28, finalLetter: r.finalLetter || '', current: r.current || {} });
-      Sound.play('correct'); hello(); flush();
-    });
-  }
-  function offerGuest(msg, email) { el.roWhy.textContent = msg; el.roWhy.setAttribute('data-email', email || ''); step('name'); Sound.play('try'); }
-  function signInGuest() {
-    var name = el.roName.value.replace(/\s+/g, ' ').trim();
-    if (!name) { status('اكْتُبِ اسْمَكَ أَوَّلًا.', true); Sound.play('try'); return; }
-    setStudent({ email: el.roWhy.getAttribute('data-email') || '', name: name, guest: true, progress: {}, count: 0, total: 28 });
-    el.roWhy.removeAttribute('data-email');
-    close();
-  }
-  function setStudent(s) {
-    student = s;
-    if (!s.guest && remember()) {
-      var m = mem(); m.recent = (m.recent || []).filter(function (r) { return r.email !== s.email; });
-      m.recent.unshift({ email: s.email, name: s.name }); m.recent = m.recent.slice(0, 8); memSave(m);
-    }
-    var mc = mem(); mc.current = { email: s.email || '', name: s.name, guest: !!s.guest, t: Date.now() }; memSave(mc);   // same student on every page of the site
-    if (PAGE === 'game' && window.TajheezCert && TajheezCert.setProgress) {
-      TajheezCert.setProgress(s.guest ? {} : ((s.progress || {})[LESSON.target] || {}));
-    }
-    applyProgress(); renderChip();
-  }
-  function signOut(reopen) {
-    student = null;
-    var mc = mem(); delete mc.current; memSave(mc);
-    if (PAGE === 'game' && window.TajheezCert && TajheezCert.setProgress) TajheezCert.setProgress({});
-    applyProgress(); renderChip();
-    if (reopen) { if (el.modal && el.modal.classList.contains('open')) { renderRecent(); el.roEmail.value = ''; step('email'); } else open(); }
-  }
-  function hello() {
-    el.roHello.textContent = 'مَرْحَبًا يَا ' + student.name + '!';
-    var h = '';
-    if (PAGE === 'game') {
-      var p = (student.progress || {})[LESSON.target] || {}, n = STAGE_ORDER.filter(function (m) { return p[m]; }).length;
-      h += '<div class="ro-stages">' + STAGE_ORDER.map(function (m) { return '<span class="ro-st' + (p[m] ? ' on' : '') + '">' + (p[m] ? '✓ ' : '') + STAGE_AR[m] + '</span>'; }).join('') + '</div>';
-      h += '<p>' + (n === 4 ? 'أَنْهَيْتَ مَرَاحِلَ هَذَا الْحَرْفِ كُلَّهَا — يُمْكِنُكَ اللَّعِبُ مَرَّةً أُخْرَى!' : n ? 'أَنْهَيْتَ ' + arN(n) + ' مِنْ ٤ مَرَاحِلَ فِي هَذَا الْحَرْفِ. هَيَّا نُكْمِلُ!' : 'هَيَّا نَبْدَأُ مَرَاحِلَ هَذَا الْحَرْفِ!') + '</p>';
-    } else {
-      h += '<p>أَكْمَلْتَ <b>' + arN(student.count || 0) + '</b> مِنْ <b>' + arN(student.total || 28) + '</b> حَرْفًا' + (student.finalLetter ? ' — آخِرُ حَرْفٍ مُكْتَمِلٍ: <b class="ro-big">' + esc(student.finalLetter) + '</b>' : '') + '.</p>';
-      var nx = nextLetter();
-      if (nx) h += '<p>اقْتِرَاحُنَا الْآنَ: حَرْفُ <b class="ro-big">' + esc(nx) + '</b></p>';
-    }
-    el.roSummary.innerHTML = h;
-    step('hello');
-  }
-  function nextLetter() {
-    if (typeof alphabetPages === 'undefined' || !student) return '';
-    var p = student.progress || {}, cur = student.current && student.current.letter;
-    var done = function (L) { var r = p[L] || {}; return STAGE_ORDER.every(function (m) { return r[m]; }); };
-    if (cur && !done(cur)) return cur;
-    for (var i = 0; i < alphabetPages.length; i++) if (alphabetPages[i].available && !done(alphabetPages[i].letter)) return alphabetPages[i].letter;
-    return '';
-  }
-
-  /* ---------- chip «👤 name — تغيير» ---------- */
-  function renderChip() {
-    var c = $('roChip');
-    if (!enabled()) { if (c) c.classList.add('hidden'); return; }
-    if (!c) {
-      c = document.createElement('button'); c.id = 'roChip'; c.className = 'ro-chipbar';
-      var host = PAGE === 'game' ? $('screen-welcome') : document.querySelector('.hero');
-      (host || document.body).appendChild(c);
-      onTap(c, function () { Sound.play('tap'); signOut(true); });
-    }
-    c.classList.remove('hidden');
-    c.innerHTML = '<span class="ro-av">' + (student ? esc(student.name.charAt(0)) : '?') + '</span><span class="ro-nm">' +
-      (student ? esc(student.name) + (student.guest ? ' <i>(ضَيْفٌ)</i>' : '') : 'مَنْ أَنْتَ؟') + '</span><span class="ro-sw">' + (student ? 'تَغْيِيرٌ' : 'دُخُولٌ') + '</span>';
-    c.setAttribute('aria-label', student ? 'الطالب: ' + student.name + ' — تغيير' : 'دخول الطالب');
-  }
-
-  /* ---------- show progress on the page ---------- */
-  function applyProgress() {
-    if (PAGE === 'game') {
-      if (typeof Modes !== 'undefined' && $('modes')) Modes.render();
-    } else if (typeof decorateCards === 'function') decorateCards(student ? student.progress || {} : null, student ? nextLetter() : '');
-  }
-  function doneStages(letter) { var p = student && !student.guest ? (student.progress || {})[letter] || {} : {}; return p; }
-
-  /* ---------- save a finished stage ---------- */
-  function stageDone(mode, stars, total) {
-    if (!enabled() || !student || PAGE !== 'game') return;
-    var item = { action: 'save', email: student.email || '', name: student.name, guest: student.guest ? 1 : 0, letter: LESSON.target, stage: mode, stars: stars, total: total };
-    if (!student.guest && STAGE_ORDER.indexOf(mode) >= 0) {        // update the local copy right away
-      var p = (student.progress = student.progress || {}), L = p[LESSON.target] = p[LESSON.target] || {};
-      if (!L[mode] || stars >= L[mode].stars) L[mode] = { stars: stars, total: total };
-    }
-    if (navigator.onLine === false) { outboxPush(item); return; }
-    api(item, function (r) {
-      if (!r || !r.ok) { outboxPush(item); return; }
-      if (r.progress && student && !student.guest) { student.progress = r.progress; student.count = r.count; student.finalLetter = r.finalLetter; }
-      flush();
-    });
-  }
-
-
-  /* ---------- teacher settings rows ---------- */
-  function settingsHTML(row) {
-    var ok = /^https:\/\/script\.google(usercontent)?\.com\//.test(ROSTER_API_URL);
-    var h = row('roster', 'سجل الطلاب (جدول جوجل)', ok ? 'يسأل الطالب عن بريده، ويحفظ المراحل التي أنهاها في الجدول' : 'غير مفعّل بعد: لم يُضَف رابط تطبيق Apps Script في الملف');
-    h += row('rosterRemember', 'تذكّر الطلاب على هذا الجهاز', 'يعرض أسماء من دخلوا سابقًا لاختيارهم بلمسة واحدة');
-    h += '<div class="set-row set-col"><div class="lbl">حالة الاتصال بالسجل<span class="hint" id="roConn">' + (ok ? 'اضغط «اختبار» للتأكد' : 'أضف الرابط في المتغير ROSTER_API_URL أعلى الملف') + '</span></div>' +
-         '<div class="ro-setbtns"><button class="btn ro-btn" id="roTest"' + (ok ? '' : ' disabled') + '><span>اختبار الاتصال</span></button>' +
-         '<button class="btn btn-light ro-btn" id="roClear"><span>مسح قائمة الطلاب المحفوظة</span></button></div></div>';
-    return h;
-  }
-  function bindSettings() {
-    var t = $('roTest'), c = $('roClear');
-    if (t) onTap(t, function () {
-      var out = $('roConn'); out.textContent = 'جارٍ الاختبار…';
-      api({ action: 'ping' }, function (r) { out.textContent = r && r.ok ? 'متصل ✔ — السجل يعمل' : 'تعذّر الاتصال — تأكد من الرابط ومن نشر التطبيق لـ «Anyone»'; });
-    });
-    if (c) onTap(c, function () { var m = mem(); m.recent = []; memSave(m); c.querySelector('span').textContent = 'تم المسح ✔'; });
-  }
-
-  var CONTINUE_HOURS = (window.TAJHEEZ_CONFIG && TAJHEEZ_CONFIG.stayHours) || 3;
-  function toast(t) {
-    var d = $('roToast'); if (!d) { d = document.createElement('div'); d.id = 'roToast'; d.className = 'ro-toast'; d.setAttribute('role', 'status'); document.body.appendChild(d); }
-    d.textContent = t; d.classList.add('show'); clearTimeout(d._t); d._t = setTimeout(function () { d.classList.remove('show'); }, 3600);
-  }
-  function resume(cur) {
-    setStudent({ email: cur.email, name: cur.name, guest: !!cur.guest, progress: {}, count: 0, total: 28 });
-    toast('مَرْحَبًا يَا ' + cur.name + '! — لِتَغْيِيرِ الطَّالِبِ الْمَسِ الِاسْمَ فِي الْأَعْلَى');
-    if (cur.guest || !cur.email) return;
-    api({ action: 'lookup', email: cur.email }, function (r) {      // refresh what he/she finished
-      if (!student || student.email !== cur.email || !r || !r.ok || !r.found) return;
-      setStudent({ email: r.email, name: r.name || cur.name, guest: false, progress: r.progress || {}, count: r.count || 0, total: r.total || 28, finalLetter: r.finalLetter || '', current: r.current || {} });
-    });
-  }
-  function init() {
-    if (!enabled()) { renderChip(); return; }
-    renderChip(); flush();
-    var cur = mem().current;
-    if (cur && cur.name && Date.now() - (cur.t || 0) < CONTINUE_HOURS * 3600000) resume(cur);   // signed in on another page
-    else setTimeout(open, 500);
-    window.addEventListener('online', flush);
-  }
-  return { init: init, open: open, settingsHTML: settingsHTML, bindSettings: bindSettings, refresh: applyProgress, signOut: signOut, stageDone: stageDone, doneStages: doneStages,
-           studentName: function () { return student && student.name || ''; }, student: function () { return student; },
-           enabled: enabled, _api: api };
-})();
-window.TajheezRoster = Roster;
 
 
 /* Home page: show each student's progress on the letter cards */
@@ -1226,6 +910,12 @@ function decorateCards(prog, next) {
   });
 }
 
+/* Progress on THIS device (no login): stages finished in each letter game */
+var PROGRESS_KEY = 'abtalAlhuruf.progress.v1';
+function readLocalProgress() { try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}') || {}; } catch (e) { return {}; } }
+function showLocalProgress() { decorateCards(readLocalProgress(), ''); }
+window.addEventListener('pageshow', function () { if ($('grid')) showLocalProgress(); });
+
 /* ---------- Settings panel ---------- */
 function sw(key, label, hint) {
   return '<div class="set-row"><div class="lbl">' + label + (hint ? '<span class="hint">' + hint + '</span>' : '') + '</div>' +
@@ -1242,11 +932,11 @@ function renderSettings() {
   h += sw('showIllus', 'إظهار الصور');
   h += sw('compact', 'عرض مضغوط', 'عنوان أصغر ومساحة أكبر للحروف');
   if (soon.length) h += sw('showSoon', 'إظهار الحروف القادمة');
-  h += Roster.settingsHTML(sw);
+  h += '<div class="set-row"><div class="lbl">مسح تقدّم الحروف على هذا الجهاز<span class="hint">يزيل علامات ✓ عن بطاقات الحروف</span></div><button class="btn btn-red" id="setClearProg"><span>مسح التقدّم</span></button></div>';
   h += '<div class="set-row"><div class="lbl">ملء الشاشة<span class="hint" id="fsHint"></span></div><button class="btn btn-blue" id="setFull"><span>ملء الشاشة</span></button></div>';
   h += '<div class="set-row"><div class="lbl">إعادة الإعدادات الافتراضية</div><button class="btn btn-red" id="setReset"><span>إعادة الضبط</span></button></div>';
   h += '<div class="set-row set-col"><div class="info-note">' + (store.persistent() ? 'تُحفَظ الإعدادات على هذا الجهاز.' : 'لا يمكن حفظ الإعدادات على هذا الجهاز — ستعود للوضع الافتراضي عند إعادة فتح الصفحة.') +
-    (Roster.enabled() ? ' يُحفَظ تقدّم الطلاب المسجّلين (بالبريد) في جدول المدرسة على Google Sheets، ولا يُحفَظ شيء عن الضيوف على هذا الجهاز.' : ' لا تُجمَع أي بيانات عن الطلاب.') + ' بعد فتح الموقع مرة واحدة تعمل صفحات الحروف حتى دون إنترنت.</div></div>';
+    ' لا يحتاج الطلاب إلى تسجيل دخول، ولا تُجمَع أي بيانات عنهم؛ يكتب الطالب اسمه على شهادته في نهاية كل حرف ولا يُحفَظ الاسم.' + ' بعد فتح الموقع مرة واحدة تعمل صفحات الحروف حتى دون إنترنت.</div></div>';
   $('setBody').innerHTML = h;
   $('fsHint').textContent = fsSupported() ? '' : 'غير مدعوم في هذا المتصفح';
   if (!fsSupported()) $('setFull').classList.add('is-disabled');
@@ -1265,7 +955,7 @@ function renderSettings() {
     });
   });
   onTap($('setFull'), function () { toggleFullscreen(); });
-  Roster.bindSettings();
+  onTap($('setClearProg'), function () { try { localStorage.removeItem(PROGRESS_KEY); } catch (e) {} showLocalProgress(); Sound.play('click'); $('setClearProg').querySelector('span').textContent = 'تم المسح ✓'; });
   onTap($('setReset'), function () {
     Object.keys(DEFAULTS).forEach(function (k) { settings[k] = DEFAULTS[k]; });
     if (reduceMotion) settings.animations = false;
@@ -1378,7 +1068,6 @@ function init() {
   var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 100); });
   window.addEventListener('orientationchange', function () { setTimeout(layout, 200); });
   Speech.init();
-  Roster.init();                      // «مَنْ أَنْتَ؟» — student record (Google Sheet)
 }
 
 // Read-only hook for QA
